@@ -1,0 +1,37 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: org.postgresql.Driver
+      url: jdbc:postgresql://10.16.4.246:5432/cs_funding
+      username: postgres
+      password: 123456
+
+
+      #?????????
+      initial-size: 15
+      min-idle: 10
+      max-active: 50
+
+      #????????
+      max-wait: 30000
+
+      #????????
+      min-evictable-idle-time-millis: 30000
+
+
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.sustech.service_education.entity
+
+
+
+
