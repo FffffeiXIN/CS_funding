@@ -14,8 +14,13 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
     
-    public Result login(int id, String password) {
-        return Result.ok().addData("loginResult", userMapper.login(id, password));
+    public Result login(Integer id, String password) {
+        return Result.ok().code(200).message("Refer to loginResult").addData("loginResult", userMapper.login(id, password));
+    }
+    
+    public Result delete(Integer id) {
+        userMapper.delete(id);
+        return Result.ok().code(200).message("Deleted");
     }
 
     public Result getAllUsers() {

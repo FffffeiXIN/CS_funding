@@ -1,6 +1,7 @@
 package com.sustech.cs_funding.mapper;
 
 import com.sustech.cs_funding.entity.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -9,16 +10,13 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    @Select("SELECT * FROM users WHERE name = #{username}")
+    @Select("SELECT name, sid, role FROM users WHERE name = #{username}")
     User getUserByName(String username);
     
-    @Select("SELECT * FROM users WHERE sid = #{id}")
-    User getUserById(int id);
-    
-    @Select("SELECT CASE WHEN password = #{password} THEN true ELSE false END FROM users WHERE sid = #{id}")
-    Boolean login(int id, String password);
+    @Select("SELECT name, sid, role FROM users WHERE sid = #{id}")
+    User getUserById(Integer id);
 
-    @Select("SELECT * FROM users")
+    @Select("SELECT name, sid, role FROM users")
     List<User> getAllUsers();
 
     @Select("SELECT sid FROM user_group WHERE group_name = #{group}")
@@ -26,4 +24,10 @@ public interface UserMapper {
 
     @Update("UPDATE users SET status = 'blocked' WHERE sid = #{id}")
     Boolean blockUser(int id);
+    
+    @Select("SELECT CASE WHEN count(*) = 1 THEN true ELSE false END FROM users WHERE password = #{password} AND sid = #{id}")
+    Boolean login(Integer id, String password);
+    
+    @Delete("DELETE FROM users WHERE sid = #{id}")
+    void delete(Integer id);
 }

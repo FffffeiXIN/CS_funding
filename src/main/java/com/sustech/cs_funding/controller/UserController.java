@@ -17,8 +17,14 @@ public class UserController {
     
     @PostMapping("/login")
     @ApiOperation(value = "User Login")
-    public Result login(int id, String password) {
+    public Result login(Integer id, String password) {
         return userService.login(id, password);
+    }
+    
+    @GetMapping("/delete")
+    @ApiOperation(value = "Delete a user by its id")
+    public Result delete(Integer id) {
+        return userService.delete(id);
     }
 
     @GetMapping("/getAllUsers")
