@@ -41,4 +41,9 @@ public class UserService {
         int id = Integer.parseInt(sid);
         return Result.ok().addData("blockResult", userMapper.blockUser(id));
     }
+
+    public Result unBlockUser(String sid) {
+        int id = Integer.parseInt(sid);
+        return Result.ok().addData("unBlockResult", userMapper.unBlockUser(id));
+    }
 }

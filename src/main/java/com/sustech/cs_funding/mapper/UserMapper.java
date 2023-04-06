@@ -24,6 +24,9 @@ public interface UserMapper {
 
     @Update("UPDATE users SET status = 'blocked' WHERE sid = #{id}")
     Boolean blockUser(int id);
+
+    @Update("UPDATE users SET status = 'normal' WHERE sid = #{id}")
+    Boolean unBlockUser(int id);
     
     @Select("SELECT CASE WHEN count(*) = 1 THEN true ELSE false END FROM users WHERE password = #{password} AND sid = #{id}")
     Boolean login(Integer id, String password);

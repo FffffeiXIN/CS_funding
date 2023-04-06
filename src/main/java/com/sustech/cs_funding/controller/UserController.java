@@ -44,4 +44,10 @@ public class UserController {
     public Result blockUser(String sid) {
         return userService.blockUser(sid);
     }
+
+    @GetMapping("/unBlockUser")
+    @ApiOperation(value = "Unblock User")
+    public Result unBlockUser(String sid) {
+        return userService.unBlockUser(sid);
+    }
 }
