@@ -3,7 +3,7 @@ import lombok.Data;
 
 @Data
 public class User {
-    Integer id;
+    Integer sid;
     String name;
     String role;
     String password;
