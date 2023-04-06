@@ -11,4 +11,7 @@ public interface UserMapper {
     
     @Select("SELECT * FROM users WHERE sid = #{id}")
     User getUserById(int id);
+    
+    @Select("SELECT CASE WHEN password = #{password} THEN true ELSE false END FROM users WHERE sid = #{id}")
+    Boolean login(int id, String password);
 }

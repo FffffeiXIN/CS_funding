@@ -8,7 +8,9 @@ public class Application {
     String group_name;
     Integer expense;
     String expense_category;
-    String summary;
-    String note;
+    String abstracts;
+    String result;
+    String remarks;
+    String comment;
     Integer id;
 }
