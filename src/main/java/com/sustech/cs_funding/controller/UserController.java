@@ -5,10 +5,7 @@ import com.sustech.cs_funding.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -24,9 +21,21 @@ public class UserController {
         return userService.login(id, password);
     }
 
-    @PostMapping("/getAllUsers")
+    @GetMapping("/getAllUsers")
     @ApiOperation(value = "Get All Users")
     public Result getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/getAllUsersByGroup")
+    @ApiOperation(value = "Get All Users")
+    public Result getAllUsersByGroup(String group) {
+        return userService.getAllUsersByGroup(group);
+    }
+
+    @GetMapping("/blockUser")
+    @ApiOperation(value = "Block User")
+    public Result blockUser(String sid) {
+        return userService.blockUser(sid);
     }
 }
