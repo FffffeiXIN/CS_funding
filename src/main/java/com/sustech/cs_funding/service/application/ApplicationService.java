@@ -29,4 +29,17 @@ public class ApplicationService {
         applicationMapper.updateResult(id, result);
         return Result.ok().code(200).message("Success");
     }
+
+    public Result getTotalCount() {
+        return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getTotalCount());
+    }
+    
+    public Result getApplications(int limit, int offset) {
+        int total = applicationMapper.getTotalCount();
+        if (limit > total - offset) {
+            return Result.error().code(300).message("Invalid limit and offset.");
+        } else {
+            return Result.ok().code(200).message("Success").addData("applications", applicationMapper.getApplications(limit, offset));
+        }
+    }
 }

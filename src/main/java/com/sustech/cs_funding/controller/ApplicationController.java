@@ -26,4 +26,17 @@ public class ApplicationController {
     public Result updateResult(String id, String result) {
         return applicationService.updateResult(id, result);
     }
+    
+    @GetMapping("/getTotalCount")
+    @ApiOperation(value = "Get the number of all applications")
+    public Result getTotalCount() {
+        return applicationService.getTotalCount();
+    }
+    
+    @GetMapping("/getApplications")
+    @ApiOperation(value = "Get all applications. " +
+            "`limit` is the number of the results, ignoring the first `offset` records")
+    public Result getApplications(int limit, int offset) {
+        return applicationService.getApplications(limit, offset);
+    }
 }
