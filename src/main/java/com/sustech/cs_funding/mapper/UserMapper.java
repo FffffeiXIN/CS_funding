@@ -14,13 +14,11 @@ public interface UserMapper {
     
     @Select("SELECT * FROM users WHERE sid = #{id}")
     User getUserById(Integer id);
-    
-    @Select("SELECT CASE WHEN password = #{password} THEN true ELSE false END FROM users WHERE sid = #{id}")
-    Boolean login(int id, String password);
 
-    @Select("SELECT * FROM users")
+    @Select("SELECT name, sid, role FROM users")
     List<User> getAllUsers();
-    @Select("SELECT CASE WHEN count(*) = 1 THEN true ELSE false END FROM users WHERE password = #{password} AND sid = #{id};")
+    
+    @Select("SELECT CASE WHEN count(*) = 1 THEN true ELSE false END FROM users WHERE password = #{password} AND sid = #{id}")
     Boolean login(Integer id, String password);
     
     @Delete("DELETE FROM users WHERE sid = #{id}")
