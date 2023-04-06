@@ -47,13 +47,13 @@ public class FundingService {
                 HashMap<String, Object> ress = new HashMap<>();
                 System.out.println(groupFund.getTotal());
                 System.out.println(groupFund.getUsed());
-                ress.put("total", groupFund.getTotal());
+                ress.put("value", groupFund.getTotal());
                 ress.put("used", groupFund.getUsed());
                 ress.put("rest", groupFund.getTotal() - groupFund.getUsed());
                 ress.put("execute_rate", groupFund.getUsed()/groupFund.getTotal());
                 //Todo:达标率未处理
                 ress.put("qualify", 1.0);
-                ress.put("fund_name", fund_name);
+                ress.put("name", fund_name);
                 arrayList.add(ress);
             }
 

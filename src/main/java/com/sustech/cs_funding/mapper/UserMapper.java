@@ -4,6 +4,8 @@ import com.sustech.cs_funding.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
     @Select("SELECT * FROM users WHERE name = #{username}")
@@ -14,4 +16,7 @@ public interface UserMapper {
     
     @Select("SELECT CASE WHEN password = #{password} THEN true ELSE false END FROM users WHERE sid = #{id}")
     Boolean login(int id, String password);
+
+    @Select("SELECT * FROM users")
+    List<User> getAllUsers();
 }

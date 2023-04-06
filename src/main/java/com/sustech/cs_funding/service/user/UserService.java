@@ -13,4 +13,8 @@ public class UserService {
     public Result login(int id, String password) {
         return Result.ok().addData("loginResult", userMapper.login(id, password));
     }
+
+    public Result getAllUsers() {
+        return Result.ok().addData("user", userMapper.getAllUsers());
+    }
 }

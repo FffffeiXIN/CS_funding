@@ -23,4 +23,10 @@ public class UserController {
     public Result login(int id, String password) {
         return userService.login(id, password);
     }
+
+    @PostMapping("/getAllUsers")
+    @ApiOperation(value = "Get All Users")
+    public Result getAllUsers() {
+        return userService.getAllUsers();
+    }
 }
