@@ -1,4 +1,4 @@
-package com.sustech.cs_funding.service.orders;
+package com.sustech.cs_funding.service.order;
 
 import com.sustech.cs_funding.common.Result;
 import com.sustech.cs_funding.entity.Orders;
