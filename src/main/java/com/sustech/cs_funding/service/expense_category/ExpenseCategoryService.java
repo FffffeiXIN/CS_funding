@@ -17,4 +17,6 @@ public class ExpenseCategoryService {
         List<ExpenseCategory> categories = expenseCategoryMapper.getAllExpenseCategories();
         return Result.ok().code(200).message("Success").addData("expense_categories", categories);
     }
+
+
 }
