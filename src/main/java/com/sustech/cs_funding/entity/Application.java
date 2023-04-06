@@ -10,4 +10,5 @@ public class Application {
     String expense_category;
     String summary;
     String note;
+    Integer id;
 }
