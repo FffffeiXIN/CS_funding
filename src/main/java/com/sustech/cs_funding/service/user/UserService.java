@@ -18,4 +18,8 @@ public class UserService {
         userMapper.delete(id);
         return Result.ok().code(200).message("Deleted");
     }
+
+    public Result getAllUsers() {
+        return Result.ok().addData("user", userMapper.getAllUsers());
+    }
 }

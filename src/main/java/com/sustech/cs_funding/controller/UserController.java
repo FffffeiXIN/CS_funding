@@ -26,4 +26,10 @@ public class UserController {
     public Result delete(Integer id) {
         return userService.delete(id);
     }
+
+    @PostMapping("/getAllUsers")
+    @ApiOperation(value = "Get All Users")
+    public Result getAllUsers() {
+        return userService.getAllUsers();
+    }
 }
