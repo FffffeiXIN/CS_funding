@@ -24,7 +24,7 @@ public class FundingService {
     public Result getFundingInfo(String funding, String group) {
         GroupFund groupFund = fundingMapper.selectFunding(group, funding);
         HashMap<String, Double> res = new HashMap<>();
-        System.out.println(res);
+//        System.out.println(res);
         res.put("total", groupFund.getTotal());
         res.put("used", groupFund.getUsed());
         res.put("rest", groupFund.getTotal() - groupFund.getUsed());
@@ -34,27 +34,33 @@ public class FundingService {
     public Result getFunding() {
         List<ResearchGroup> groups = researchGroupMapper.selectAllResearchGroup();
         List<String> fundingNames = fundingMapper.getAllFundingName();
-        HashMap<String, HashMap<String, HashMap<String, Double>>> res = new HashMap<>();
+        ArrayList<HashMap<String, Object>> whole_res = new ArrayList<>();
+
 
         for (ResearchGroup group : groups) {
+            HashMap<String, Object> res = new HashMap<>();
             String group_name = group.getName();
-            HashMap<String, HashMap<String, Double>> maps = new HashMap<>();
+            ArrayList<HashMap<String, Object>> arrayList = new ArrayList<>();
 
             for (String fund_name : fundingNames) {
                 GroupFund groupFund = fundingMapper.selectFunding(group_name, fund_name);
-                HashMap<String, Double> ress = new HashMap<>();
+                HashMap<String, Object> ress = new HashMap<>();
                 System.out.println(groupFund.getTotal());
                 System.out.println(groupFund.getUsed());
                 ress.put("total", groupFund.getTotal());
                 ress.put("used", groupFund.getUsed());
                 ress.put("rest", groupFund.getTotal() - groupFund.getUsed());
                 ress.put("execute_rate", groupFund.getUsed()/groupFund.getTotal());
-                //
+                //Todo:达标率未处理
                 ress.put("qualify", 1.0);
-                maps.put(fund_name, ress);
+                ress.put("fund_name", fund_name);
+                arrayList.add(ress);
             }
-            res.put(group_name, maps);
+
+            res.put("group_name", group_name);
+            res.put("fundings", arrayList);
+            whole_res.add(res);
         }
-        return Result.ok().code(200).message("Success").addData("funding_info", res);
+        return Result.ok().code(200).message("Success").addData("funding_info", whole_res);
     }
 }

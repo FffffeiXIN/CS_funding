@@ -23,8 +23,8 @@ public class ApplicationController {
     
     @PostMapping("/updateResult")
     @ApiOperation(value = "Update the result")
-    public Result updateResult(String id, String result) {
-        return applicationService.updateResult(id, result);
+    public Result updateResult(String id, String result, String comment) {
+        return applicationService.updateResult(id, result,comment);
     }
     
     @GetMapping("/getTotalCount")
@@ -39,4 +39,5 @@ public class ApplicationController {
     public Result getApplications(int limit, int offset) {
         return applicationService.getApplications(limit, offset);
     }
+
 }

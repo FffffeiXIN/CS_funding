@@ -1,5 +1,6 @@
 package com.sustech.cs_funding.mapper;
 
+import com.sustech.cs_funding.entity.Fund;
 import com.sustech.cs_funding.entity.GroupFund;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -20,4 +21,7 @@ public interface FundingMapper {
     
     @Select("SELECT name FROM fund")
     List<String> getAllFundingName();
+
+    @Select("SELECT * FROM fund where name = #{name}")
+    Fund getFundByName(String name);
 }

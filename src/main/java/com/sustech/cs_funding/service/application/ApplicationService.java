@@ -30,8 +30,8 @@ public class ApplicationService {
         return Result.ok().code(200).message("Success");
     }
     
-    public Result updateResult(String id, String result) {
-        applicationMapper.updateResult(id, result);
+    public Result updateResult(String id, String result, String comment) {
+        applicationMapper.updateResult(id, result, comment);
         return Result.ok().code(200).message("Success");
     }
 
