@@ -33,4 +33,7 @@ public interface UserMapper {
     
     @Delete("DELETE FROM users WHERE sid = #{id}")
     void delete(Integer id);
+
+    @Update("UPDATE users SET password = #{password} WHERE sid = #{id}")
+    Boolean modifyPasswd(String password);
 }
