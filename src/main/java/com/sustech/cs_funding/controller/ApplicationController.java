@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/groups")
+@RequestMapping("/apply")
 @CrossOrigin
 @Api(tags = "接口测试")
 public class ApplicationController {
@@ -20,7 +20,7 @@ public class ApplicationController {
 
     @GetMapping("/applyFunding")
     @ApiOperation(value = "Apply Funding")
-    public Result applyFunding(String fundName, String applicant, String group, Double money, String category,String abstracts, String remarks) {
-        return applicationService.applyFunding(fundName, applicant, group, money, category, abstracts, remarks);
+    public Result applyFunding(String fundName, String applicant, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
+        return applicationService.applyFunding(fundName, applicant, group, money, first_category, second_category, abstracts, remarks);
     }
 }

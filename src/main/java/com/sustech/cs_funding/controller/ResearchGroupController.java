@@ -24,10 +24,4 @@ public class ResearchGroupController {
         return researchGroupService.getAllResearchGroups();
     }
 
-    @GetMapping("/getFundingInfoByGroupAndFundingName")
-    @ApiOperation(value = "Get Funding Info By Group And FundingName")
-    public Result getFundingInfo(String funding, String group) {
-        return researchGroupService.getFundingInfo(funding, group);
-    }
-
 }
