@@ -20,7 +20,7 @@ public class ApplicationController {
 
     @GetMapping("/applyFunding")
     @ApiOperation(value = "Apply Funding")
-    public Result applyFunding(String fundName, String applicant, String group, String money, String category,String abstracts, String remarks) {
+    public Result applyFunding(String fundName, String applicant, String group, Double money, String category,String abstracts, String remarks) {
         return applicationService.applyFunding(fundName, applicant, group, money, category, abstracts, remarks);
     }
 }

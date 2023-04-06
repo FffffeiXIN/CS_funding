@@ -11,12 +11,17 @@ import org.springframework.stereotype.Service;
 public class ApplicationService {
     @Autowired
     ApplicationMapper applicationMapper;
+    @Autowired
     ExpenseCategoryMapper expenseCategoryMapper;
+    @Autowired
     UserMapper userMapper;
-    public Result applyFunding(String fundName, String applicant, String group, String money, String category,String abstracts, String remarks){
-        String[] categories = category.split("/");
+    public Result applyFunding(String fundName, String applicant, String group, Double money, String category,String abstracts, String remarks){
+        String[] categories = category.split(" / ");
         Integer categoryID = expenseCategoryMapper.getCategoryID(categories[0], categories[1]);
-        Integer applicant_id = userMapper.getUser(applicant).getId();
+        System.out.println(applicant);
+        System.out.println(userMapper.getUser(applicant).getSid());
+        Integer applicant_id = userMapper.getUser(applicant).getSid();
+        System.out.println(applicant_id);
         applicationMapper.applyFunding(fundName, applicant_id, group, money, categoryID,abstracts, remarks);
         return Result.ok().code(200).message("Success");
     }
