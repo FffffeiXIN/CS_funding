@@ -9,10 +9,10 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    @Select("SELECT * FROM users WHERE name = #{username}")
+    @Select("SELECT name, sid, role FROM users WHERE name = #{username}")
     User getUserByName(String username);
     
-    @Select("SELECT * FROM users WHERE sid = #{id}")
+    @Select("SELECT name, sid, role FROM users WHERE sid = #{id}")
     User getUserById(Integer id);
 
     @Select("SELECT name, sid, role FROM users")
