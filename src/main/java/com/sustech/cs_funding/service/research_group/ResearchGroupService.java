@@ -1,4 +1,4 @@
-package com.sustech.cs_funding.service.ResearchGroup;
+package com.sustech.cs_funding.service.research_group;
 
 import com.sustech.cs_funding.common.Result;
 import com.sustech.cs_funding.entity.ResearchGroup;
@@ -14,6 +14,6 @@ public class ResearchGroupService {
     ResearchGroupMapper researchGroupMapper;
     public Result getAllResearchGroups() {
         List<ResearchGroup> groups = researchGroupMapper.selectAllResearchGroup();
-        return Result.ok().code(200).message("Success").addData("researchGroups", groups);
+        return Result.ok().code(200).message("Success").addData("research_groups", groups);
     }
 }
