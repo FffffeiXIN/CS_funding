@@ -25,4 +25,9 @@ public class ApplicationService {
         applicationMapper.applyFunding(fundName, applicant_id, group, money, categoryID,abstracts, remarks);
         return Result.ok().code(200).message("Success");
     }
+    
+    public Result updateResult(String id, String result) {
+        applicationMapper.updateResult(id, result);
+        return Result.ok().code(200).message("Success");
+    }
 }

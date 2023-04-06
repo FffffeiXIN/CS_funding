@@ -5,10 +5,7 @@ import com.sustech.cs_funding.service.application.ApplicationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/apply")
@@ -22,5 +19,11 @@ public class ApplicationController {
     @ApiOperation(value = "Apply Funding")
     public Result applyFunding(String fundName, String applicant, String group, Double money, String category,String abstracts, String remarks) {
         return applicationService.applyFunding(fundName, applicant, group, money, category, abstracts, remarks);
+    }
+    
+    @PostMapping("/updateResult")
+    @ApiOperation(value = "Update the result")
+    public Result updateResult(String id, String result) {
+        return applicationService.updateResult(id, result);
     }
 }
