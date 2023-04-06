@@ -1,8 +1,8 @@
 package com.sustech.cs_funding.controller;
 
 import com.sustech.cs_funding.common.Result;
+import com.sustech.cs_funding.service.funding.FundingService;
 import com.sustech.cs_funding.service.research_group.ResearchGroupService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,17 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/groups")
+@RequestMapping("/funding")
 @CrossOrigin
-@Api(tags = "接口测试")
-public class ResearchGroupController {
+public class FundingController {
     @Autowired
-    ResearchGroupService researchGroupService;
+    FundingService fundingService;
     
-    @GetMapping("/getAllResearchGroups")
-    @ApiOperation(value = "Get All Research Groups")
-    public Result getAllResearchGroups() {
-        return researchGroupService.getAllResearchGroups();
+    @GetMapping("/getFundingInfoByGroupAndFundingName")
+    @ApiOperation(value = "Get Funding Info By Group And FundingName")
+    public Result getFundingInfo(String funding, String group) {
+        return fundingService.getFundingInfo(funding, group);
     }
-
 }
