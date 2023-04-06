@@ -28,4 +28,6 @@ public class FundingController {
     public Result getAllFundingInfo() {
         return fundingService.getFunding();
     }
+
+
 }

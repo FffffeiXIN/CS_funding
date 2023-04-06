@@ -23,7 +23,7 @@ public class ApplicationController {
     
     @PostMapping("/updateResult")
     @ApiOperation(value = "Update the result")
-    public Result updateResult(String id, String result) {
-        return applicationService.updateResult(id, result);
+    public Result updateResult(String id, String result, String comment) {
+        return applicationService.updateResult(id, result,comment);
     }
 }

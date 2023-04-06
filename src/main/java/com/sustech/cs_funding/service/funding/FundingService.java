@@ -34,24 +34,26 @@ public class FundingService {
     public Result getFunding() {
         List<ResearchGroup> groups = researchGroupMapper.selectAllResearchGroup();
         List<String> fundingNames = fundingMapper.getAllFundingName();
-        HashMap<String, HashMap<String, HashMap<String, Double>>> res = new HashMap<>();
+        HashMap<String, HashMap<String,String>> res = new HashMap<>();
 
         for (ResearchGroup group : groups) {
             String group_name = group.getName();
-            HashMap<String, HashMap<String, Double>> maps = new HashMap<>();
+            HashMap<String,String> maps = new HashMap<>();
 
             for (String fund_name : fundingNames) {
                 GroupFund groupFund = fundingMapper.selectFunding(group_name, fund_name);
-                HashMap<String, Double> ress = new HashMap<>();
-                System.out.println(groupFund.getTotal());
-                System.out.println(groupFund.getUsed());
-                ress.put("total", groupFund.getTotal());
-                ress.put("used", groupFund.getUsed());
-                ress.put("rest", groupFund.getTotal() - groupFund.getUsed());
-                ress.put("execute_rate", groupFund.getUsed()/groupFund.getTotal());
+
+//                System.out.println(groupFund.getTotal());
+//                System.out.println(groupFund.getUsed());
+                maps.put("funding_name", fund_name);
+                maps.put("total", groupFund.getTotal().toString());
+                maps.put("used", groupFund.getUsed().toString());
+                Double rest = groupFund.getTotal() - groupFund.getUsed();
+                maps.put("rest", rest.toString());
+                Double ratio = groupFund.getUsed()/groupFund.getTotal();
+                maps.put("execute_rate", ratio.toString());
                 //
-                ress.put("qualify", 1.0);
-                maps.put(fund_name, ress);
+                maps.put("qualify", "50%");
             }
             res.put(group_name, maps);
         }
