@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.*;
 @Api(tags = "接口测试")
 public class ApplicationController {
     @Autowired
-    ApplicationService applicationService ;
+    ApplicationService applicationService;
 
-    @GetMapping("/applyFunding")
+    @PostMapping("/applyFunding")
     @ApiOperation(value = "Apply Funding")
     public Result applyFunding(String fundName, String applicant, String group, Double money, String category,String abstracts, String remarks) {
         return applicationService.applyFunding(fundName, applicant, group, money, category, abstracts, remarks);
