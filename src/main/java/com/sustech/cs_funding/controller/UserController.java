@@ -5,10 +5,7 @@ import com.sustech.cs_funding.service.user.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
@@ -20,7 +17,13 @@ public class UserController {
     
     @PostMapping("/login")
     @ApiOperation(value = "User Login")
-    public Result login(int id, String password) {
+    public Result login(Integer id, String password) {
         return userService.login(id, password);
+    }
+    
+    @GetMapping("/delete")
+    @ApiOperation(value = "Delete a user by its id")
+    public Result delete(Integer id) {
+        return userService.delete(id);
     }
 }

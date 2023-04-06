@@ -1,6 +1,7 @@
 package com.sustech.cs_funding.mapper;
 
 import com.sustech.cs_funding.entity.User;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -10,8 +11,11 @@ public interface UserMapper {
     User getUserByName(String username);
     
     @Select("SELECT * FROM users WHERE sid = #{id}")
-    User getUserById(int id);
+    User getUserById(Integer id);
     
-    @Select("SELECT CASE WHEN password = #{password} THEN true ELSE false END FROM users WHERE sid = #{id}")
-    Boolean login(int id, String password);
+    @Select("SELECT CASE WHEN count(*) = 1 THEN true ELSE false END FROM users WHERE password = #{password} AND sid = #{id};")
+    Boolean login(Integer id, String password);
+    
+    @Delete("DELETE FROM users WHERE sid = #{id}")
+    void delete(Integer id);
 }
