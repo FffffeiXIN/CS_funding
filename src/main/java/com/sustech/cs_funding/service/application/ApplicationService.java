@@ -6,12 +6,11 @@ import com.sustech.cs_funding.entity.Application;
 import com.sustech.cs_funding.entity._ApplicationWithApplicant;
 import com.sustech.cs_funding.mapper.ApplicationMapper;
 import com.sustech.cs_funding.mapper.ExpenseCategoryMapper;
+import com.sustech.cs_funding.mapper.FundingMapper;
 import com.sustech.cs_funding.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +22,8 @@ public class ApplicationService {
     ExpenseCategoryMapper expenseCategoryMapper;
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    FundingMapper fundingMapper;
     public Result applyFunding(String fundName, String applicant_id, String group, Double money, String first_category, String second_category,String abstracts, String remarks){
         Integer categoryID = expenseCategoryMapper.getCategoryID(first_category, second_category);
 
@@ -40,8 +41,16 @@ public class ApplicationService {
         return Result.ok().code(200).message("Success");
     }
     
-    public Result updateResult(String id, String result, String comment) {
+    public Result updateResult(Integer id, String result, String comment) {
         applicationMapper.updateResult(id, result, comment);
+        if (result.equals("pass")){
+            Application application = applicationMapper.getApplicationById(id);
+            String group = application.getGroup_name();
+            String fundName = application.getFund_name();
+            Double money = application.getExpense();
+            fundingMapper.updateFunding(group, fundName,money);
+//            return Result.ok().code(200).message("Success").addData("apply",application);
+        }
         return Result.ok().code(200).message("Success");
     }
 

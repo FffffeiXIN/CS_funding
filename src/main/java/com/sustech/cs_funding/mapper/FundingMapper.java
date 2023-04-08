@@ -8,6 +8,7 @@ import com.sustech.cs_funding.entity._ExpenditureSummaryUser;
 import com.sustech.cs_funding.entity._MultiUsedTable;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -51,4 +52,7 @@ public interface FundingMapper {
 
     @Select("SELECT fund.code as code, fund.name as name, fund.due_date::date as due_date, group_fund.total as total_sum, group_fund.used as used_sum, (group_fund.total - group_fund.used) as left_sum, (100 * group_fund.used / group_fund.total || '%') as current_execution_rate, fund.execution_rate as qualified FROM group_fund JOIN fund ON fund.name = group_fund.fund_name where group_fund.group_name = #{group}")
     List<_ExpenditureSummaryUser> calculateExpenditureSummaryUser(String group);
+
+    @Update("UPDATE group_fund SET used = used + #{addUsed} WHERE group_name = #{group} and fund_name = #{funding}")
+    void updateFunding(String group, String funding, Double addUsed);
 }

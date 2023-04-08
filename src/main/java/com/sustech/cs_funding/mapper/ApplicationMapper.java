@@ -14,12 +14,14 @@ public interface ApplicationMapper {
             "VALUES (#{fundName}, #{applicant_id}, #{group}, #{money}, #{category}, #{abstracts}, #{remarks})")
     void applyFunding(String fundName, Integer applicant_id, String group, Double money, Integer category,String abstracts, String remarks);
 
-    @Update("UPDATE result=#{result}, comment=#{comment}  FROM application WHERE id=#{id}")
-    void updateResult(String id, String result, String comment);
+    @Update("UPDATE application set result=#{result}, comment=#{comment} WHERE id=#{id}")
+    void updateResult(Integer id, String result, String comment);
 
     @Select("SELECT count(*) FROM application")
     int getTotalCount();
     
     @Select("SELECT * FROM application ORDER BY id LIMIT #{limit} OFFSET #{offset}")
     List<Application> getApplications(int limit, int offset);
+    @Select("SELECT * FROM application WHERE id=#{id}")
+    Application getApplicationById(Integer id);
 }
