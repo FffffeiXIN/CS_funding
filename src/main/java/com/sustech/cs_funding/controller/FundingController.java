@@ -41,4 +41,9 @@ public class FundingController {
         return fundingService.getAuthorizedFundingDetail();
     }
 
+    @GetMapping("/calculateExpenditureSummary")
+    @ApiOperation(value = "ExpenditureSummary Table")
+    public Result calculateExpenditureSummary() {
+        return fundingService.getExpenditureSummary();
+    }
 }
