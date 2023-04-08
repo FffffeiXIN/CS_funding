@@ -10,20 +10,6 @@ import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 public class SendEmail {
-//    public Result sendMailToStudents(String course_id, String title, String content) {
-//        List<User> students = courseMapper.getStudentsByCourse(course_id);
-//        try {
-//            for (Student s : students) {
-//                String email = s.getId();
-//                sendMail(email, course_id, title, content);
-//            }
-//        } catch (MessagingException | UnknownHostException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//        return Result.ok().message("邮件发送成功");
-//    }
-
     public static void sendMail(String mail, String subject, String send_message) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtps");
@@ -56,6 +42,5 @@ public class SendEmail {
         transport.connect("12012939@mail.sustech.edu.cn", password);
 
         transport.sendMessage(message, message.getAllRecipients());
-
     }
 }
