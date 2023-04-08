@@ -7,7 +7,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import java.net.UnknownHostException;
 import java.util.Properties;
 
 public class SendEmail {
@@ -25,7 +24,7 @@ public class SendEmail {
 //        return Result.ok().message("邮件发送成功");
 //    }
 
-    public static void sendMail(String mail, String subject, String send_message) throws MessagingException, UnknownHostException {
+    public static void sendMail(String mail, String subject, String send_message) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtps.host", "smtp.sustech.edu.cn");

@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class ApplicationService {
@@ -76,7 +75,11 @@ public class ApplicationService {
             return Result.error().code(300).message("Invalid limit and offset.");
         } else {
             List<Application> applications;
-            applications = applicationMapper.getApplications(limit, offset, Objects.requireNonNullElse(status, "%"));
+            if (status.equals("total")) {
+                applications = applicationMapper.getApplications(limit, offset, "%");
+            } else {
+                applications = applicationMapper.getApplications(limit, offset, status);
+            }
             List<_ApplicationWithApplicant> _applicationWithApplicants = new ArrayList<>();
             for (Application a : applications) {
                 _ApplicationWithApplicant _app = new _ApplicationWithApplicant();
