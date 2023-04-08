@@ -32,4 +32,7 @@ public interface FundingMapper {
     
     @Select("SELECT group_name, fund_name, code, total, used, (total - used) as usable_left, (100 * used / total || '%') as current_execution_rate, fund.execution_rate as qualified FROM group_fund JOIN fund ON  fund.name = group_fund.fund_name")
     List<_ExpenditureSummary> calculateExpenditureSummary();
+    
+    @Select("SELECT fund.code as code, fund.name as name, fund.due_date::date as due_date, group_fund.total as total_sum, group_fund.used as used_sum, (group_fund.total - group_fund.used) as left_sum, (100 * group_fund.used / group_fund.total || '%') as current_execution_rate, fund.execution_rate as qualified FROM group_fund JOIN fund ON fund.name = group_fund.fund_name where group_fund.group_name = #{group}")
+    List<_ExpenditureSummaryUser> calculateExpenditureSummaryUser(String group);
 }
