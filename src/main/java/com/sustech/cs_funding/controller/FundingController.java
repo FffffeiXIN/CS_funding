@@ -46,4 +46,10 @@ public class FundingController {
     public Result calculateExpenditureSummary() {
         return fundingService.getExpenditureSummary();
     }
+    
+    @GetMapping("/calculateExpenditureSummaryUser")
+    @ApiOperation(value = "ExpenditureSummary Table per User")
+    public Result calculateExpenditureSummaryUser(String group) {
+        return fundingService.getExpenditureSummaryUser(group);
+    }
 }
