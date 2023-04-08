@@ -31,4 +31,7 @@ public interface ApplicationMapper {
 
     @Select("SELECT * FROM application WHERE result LIKE #{status} AND group_name = #{group} ORDER BY id LIMIT #{limit} OFFSET #{offset}")
     List<Application> getApplicationsByGroup(String group, int limit, int offset, String status);
+
+    @Select("SELECT count(*) FROM application WHERE group_name = #{group}")
+    Integer getApplicationCountByGroup(String group);
 }

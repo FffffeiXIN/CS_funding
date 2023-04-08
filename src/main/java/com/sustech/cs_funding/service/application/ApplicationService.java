@@ -116,4 +116,8 @@ public class ApplicationService {
         }
         return Result.ok().code(200).message("Success").addData("applications", _applicationWithApplicants);
     }
+    
+    public Result getApplicationCountByGroup(String group) {
+        return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getApplicationCountByGroup(group));
+    }
 }
