@@ -8,10 +8,10 @@ import com.sustech.cs_funding.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-import static java.time.LocalTime.now;
 
 @Service
 public class ApplicationService {
@@ -41,7 +41,11 @@ public class ApplicationService {
         try {
             System.out.println(adminEmail);
             SendEmail.sendMail(adminEmail, "New Funding Application", message);
-            notificationMapper.insertNotification(Integer.parseInt(applicant_id), message, String.valueOf(now()));
+            Date date = new Date(); // this object contains the current date value
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String time = formatter.format(date);
+            System.out.println(formatter.format(date));
+            notificationMapper.insertNotification(Integer.parseInt(applicant_id), message, time);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -65,7 +69,11 @@ public class ApplicationService {
         Integer user_id = application.getApplicant_id();
         try {
             SendEmail.sendMail(userMapper.getUserById(user_id).getEmail(), "Application Result", comment);
-            notificationMapper.insertNotification(user_id, comment, String.valueOf(now()));
+            Date date = new Date(); // this object contains the current date value
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String time = formatter.format(date);
+            System.out.println(formatter.format(date));
+            notificationMapper.insertNotification(user_id, comment, time);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
