@@ -27,7 +27,6 @@ public class FundingService {
     public Result getFundingInfo(String funding, String group) {
         GroupFund groupFund = fundingMapper.selectFunding(group, funding);
         HashMap<String, Double> res = new HashMap<>();
-//        System.out.println(res);
         res.put("total", groupFund.getTotal());
         res.put("used", groupFund.getUsed());
         res.put("rest", groupFund.getTotal() - groupFund.getUsed());
@@ -48,8 +47,6 @@ public class FundingService {
             for (String fund_name : fundingNames) {
                 GroupFund groupFund = fundingMapper.selectFunding(group_name, fund_name);
                 HashMap<String, Object> ress = new HashMap<>();
-                System.out.println(groupFund.getTotal());
-                System.out.println(groupFund.getUsed());
                 ress.put("value", groupFund.getTotal());
                 ress.put("used", groupFund.getUsed());
                 ress.put("rest", groupFund.getTotal() - groupFund.getUsed());

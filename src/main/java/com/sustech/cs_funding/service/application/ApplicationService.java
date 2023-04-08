@@ -28,7 +28,6 @@ public class ApplicationService {
 
     public Result applyFunding(Integer id, String fundName, String applicant_id, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
         Integer categoryID = expenseCategoryMapper.getCategoryID(first_category, second_category);
-//        System.out.println(applicant_id);
         if (id != -1) {
             applicationMapper.updateApp(id, fundName, money, categoryID, abstracts, remarks);
         }
@@ -39,7 +38,6 @@ public class ApplicationService {
         String adminEmail = userMapper.getAdminEmail("CSE");
         String message = "From group " + group + ",\nthere are a new application for funding " + fundName;
         try {
-            System.out.println(adminEmail);
             SendEmail.sendMail(adminEmail, "New Funding Application", message);
             Date date = new Date(); // this object contains the current date value
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
