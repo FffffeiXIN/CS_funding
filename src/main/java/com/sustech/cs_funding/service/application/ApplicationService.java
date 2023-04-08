@@ -11,6 +11,8 @@ import com.sustech.cs_funding.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,11 +26,12 @@ public class ApplicationService {
     UserMapper userMapper;
     @Autowired
     FundingMapper fundingMapper;
-    public Result applyFunding(String fundName, String applicant_id, String group, Double money, String first_category, String second_category,String abstracts, String remarks){
+
+    public Result applyFunding(String fundName, String applicant_id, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
         Integer categoryID = expenseCategoryMapper.getCategoryID(first_category, second_category);
 
         System.out.println(applicant_id);
-        applicationMapper.applyFunding(fundName, Integer.parseInt(applicant_id), group, money, categoryID,abstracts, remarks);
+        applicationMapper.applyFunding(fundName, Integer.parseInt(applicant_id), group, money, categoryID, abstracts, remarks);
         //Todo:后续要改
         String adminEmail = userMapper.getAdminEmail("CSE");
         String message = "From group " + group + ",\nthere are a new application for funding " + fundName;
@@ -40,16 +43,26 @@ public class ApplicationService {
         }
         return Result.ok().code(200).message("Success");
     }
-    
+
     public Result updateResult(Integer id, String result, String comment) {
         applicationMapper.updateResult(id, result, comment);
-        if (result.equals("pass")){
-            Application application = applicationMapper.getApplicationById(id);
+        Application application = applicationMapper.getApplicationById(id);
+        if (result.equals("pass")) {
+            comment = "Your application for funding has been approved.\n"+"Comment: "+ comment;
             String group = application.getGroup_name();
             String fundName = application.getFund_name();
             Double money = application.getExpense();
-            fundingMapper.updateFunding(group, fundName,money);
+            fundingMapper.updateFunding(group, fundName, money);
 //            return Result.ok().code(200).message("Success").addData("apply",application);
+        }
+        else{
+            comment = "Sorry, your application for funding has been refused.\n"+"Comment: "+ comment;
+        }
+        Integer user_id = application.getApplicant_id();
+        try {
+            SendEmail.sendMail(userMapper.getUserById(user_id).getEmail(), "Application Result", comment);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return Result.ok().code(200).message("Success");
     }
@@ -57,7 +70,7 @@ public class ApplicationService {
     public Result getTotalCount() {
         return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getTotalCount());
     }
-    
+
     public Result getApplications(int limit, int offset) {
         int total = applicationMapper.getTotalCount();
         if (limit > total - offset) {
@@ -65,7 +78,7 @@ public class ApplicationService {
         } else {
             List<Application> applications = applicationMapper.getApplications(limit, offset);
             List<_ApplicationWithApplicant> _applicationWithApplicants = new ArrayList<>();
-            for (Application a: applications) {
+            for (Application a : applications) {
                 _ApplicationWithApplicant _app = new _ApplicationWithApplicant();
                 _app.setApplication(a);
                 _app.setApplicant(userMapper.getUserById(a.getApplicant_id()));
