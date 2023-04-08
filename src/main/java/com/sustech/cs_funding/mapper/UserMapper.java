@@ -10,13 +10,13 @@ import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    @Select("SELECT name, sid, role FROM users WHERE name = #{username}")
+    @Select("SELECT name, sid, role, status FROM users WHERE name = #{username}")
     User getUserByName(String username);
     
-    @Select("SELECT name, sid, role FROM users WHERE sid = #{id}")
+    @Select("SELECT name, sid, role, status FROM users WHERE sid = #{id}")
     User getUserById(Integer id);
 
-    @Select("SELECT name, sid, role FROM users")
+    @Select("SELECT name, sid, role, status FROM users")
     List<User> getAllUsers();
 
     @Select("SELECT sid FROM user_group WHERE group_name = #{group}")
@@ -28,8 +28,11 @@ public interface UserMapper {
     @Update("UPDATE users SET status = 'normal' WHERE sid = #{id}")
     Boolean unBlockUser(int id);
     
-    @Select("SELECT CASE WHEN count(*) = 1 THEN true ELSE false END FROM users WHERE password = #{password} AND sid = #{id}")
-    Boolean login(Integer id, String password);
+    @Select("SELECT name, sid, role, status FROM users WHERE password = #{password} AND sid = #{id}")
+    List<User> login(Integer id, String password);
+
+    @Select("SELECT group_name FROM user_group WHERE sid = #{id}")
+    List<String> getGroup(Integer id);
     
     @Delete("DELETE FROM users WHERE sid = #{id}")
     void delete(Integer id);

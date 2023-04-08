@@ -15,7 +15,13 @@ public class UserService {
     UserMapper userMapper;
     
     public Result login(Integer id, String password) {
-        return Result.ok().code(200).message("Refer to loginResult").addData("loginResult", userMapper.login(id, password));
+        List<User> res = userMapper.login(id, password);
+        if (res.isEmpty()) {
+            return Result.error().code(400).message("Wrong password");
+        }
+        return Result.ok().code(200).message("Refer to loginResult")
+                .addData("user", userMapper.login(id, password))
+                .addData("group", userMapper.getGroup(id));
     }
     
     public Result delete(Integer id) {

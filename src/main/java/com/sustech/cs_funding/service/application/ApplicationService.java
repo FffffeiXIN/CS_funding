@@ -20,13 +20,11 @@ public class ApplicationService {
     ExpenseCategoryMapper expenseCategoryMapper;
     @Autowired
     UserMapper userMapper;
-    public Result applyFunding(String fundName, String applicant, String group, Double money, String first_category, String second_category,String abstracts, String remarks){
+    public Result applyFunding(String fundName, String applicant_id, String group, Double money, String first_category, String second_category,String abstracts, String remarks){
         Integer categoryID = expenseCategoryMapper.getCategoryID(first_category, second_category);
-        System.out.println(applicant);
-        System.out.println(userMapper.getUserByName(applicant).getSid());
-        Integer applicant_id = userMapper.getUserByName(applicant).getSid();
+//        Integer applicant_id = userMapper.getUserByName(applicant).getSid();
         System.out.println(applicant_id);
-        applicationMapper.applyFunding(fundName, applicant_id, group, money, categoryID,abstracts, remarks);
+        applicationMapper.applyFunding(fundName, Integer.parseInt(applicant_id), group, money, categoryID,abstracts, remarks);
         return Result.ok().code(200).message("Success");
     }
     

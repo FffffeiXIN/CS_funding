@@ -6,6 +6,10 @@ import lombok.Data;
 public class _AuthorizedFundingDetail {
     String code;
     String name;
-    String group;
+    String groups;
     Double total_sum;
+    Double used_sum;
+    String first_category;
+    String second_category;
 }
+
