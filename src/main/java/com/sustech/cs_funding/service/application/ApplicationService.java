@@ -28,7 +28,6 @@ public class ApplicationService {
 
     public Result applyFunding(Integer id, String fundName, String applicant_id, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
         Integer categoryID = expenseCategoryMapper.getCategoryID(first_category, second_category);
-        applicationMapper.applyFunding(fundName, Integer.parseInt(applicant_id), group, money, categoryID, abstracts, remarks);
         if (id != -1) {
             applicationMapper.updateApp(id, fundName, money, categoryID, abstracts, remarks);
         }

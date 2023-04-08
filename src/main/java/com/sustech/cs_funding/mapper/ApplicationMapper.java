@@ -25,6 +25,7 @@ public interface ApplicationMapper {
     
     @Select("SELECT * FROM application WHERE result LIKE #{status} ORDER BY id LIMIT #{limit} OFFSET #{offset}")
     List<Application> getApplications(int limit, int offset, String status);
+    
     @Select("SELECT * FROM application WHERE id=#{id}")
     Application getApplicationById(Integer id);
 
