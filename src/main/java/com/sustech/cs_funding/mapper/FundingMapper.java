@@ -3,6 +3,7 @@ package com.sustech.cs_funding.mapper;
 import com.sustech.cs_funding.entity.Fund;
 import com.sustech.cs_funding.entity.GroupFund;
 import com.sustech.cs_funding.entity._ExpenditureSummary;
+import com.sustech.cs_funding.entity._ExpenditureSummaryUser;
 import com.sustech.cs_funding.entity._MultiUsedTable;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
