@@ -8,7 +8,6 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.net.UnknownHostException;
-import java.util.List;
 import java.util.Properties;
 
 public class SendEmail {

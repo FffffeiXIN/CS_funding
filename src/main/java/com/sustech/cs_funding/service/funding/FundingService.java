@@ -3,6 +3,7 @@ package com.sustech.cs_funding.service.funding;
 import com.sustech.cs_funding.common.Result;
 import com.sustech.cs_funding.entity.GroupFund;
 import com.sustech.cs_funding.entity.ResearchGroup;
+import com.sustech.cs_funding.entity._MultiUsedTable;
 import com.sustech.cs_funding.mapper.FundingMapper;
 import com.sustech.cs_funding.mapper.ResearchGroupMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,5 +68,8 @@ public class FundingService {
     public Result getFundingBySum(){
         List<_MultiUsedTable> multiusedtable = fundingMapper.calculateFundingSum();
         return  Result.ok().code(200).message("Success").addData("funding_info", multiusedtable);
+    }
+    public Result getAuthorizedFundingDetail(){
+
     }
 }
