@@ -28,6 +28,12 @@ public class FundingController {
     public Result getAllFundingInfo() {
         return fundingService.getFunding();
     }
+    
+    @GetMapping("/calculateFundingSum")
+    @ApiOperation(value = "Calculate Sum of total value and used value by funding type")
+    public Result calculateFundingSum() {
+        return fundingService.getFundingBySum();
+    }
 
 
 }
