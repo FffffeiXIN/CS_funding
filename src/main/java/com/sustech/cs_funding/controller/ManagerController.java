@@ -1,9 +1,7 @@
 package com.sustech.cs_funding.controller;
 
 import com.sustech.cs_funding.common.Result;
-import com.sustech.cs_funding.service.funding.FundingService;
 import com.sustech.cs_funding.service.manager.ManagerService;
-import com.sustech.cs_funding.service.research_group.ResearchGroupService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
