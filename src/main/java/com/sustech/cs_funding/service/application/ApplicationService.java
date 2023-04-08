@@ -65,12 +65,16 @@ public class ApplicationService {
         return Result.ok().code(200).message("Success");
     }
 
-    public Result getTotalCount() {
-        return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getTotalCount());
+    public Result getTotalCount(String status) {
+        if (status.equals("total")) {
+            return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getTotalCount("%"));
+        } else {
+            return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getTotalCount(status));
+        }
     }
 
     public Result getApplications(int limit, int offset, String status) {
-        int total = applicationMapper.getTotalCount();
+        int total = applicationMapper.getTotalCount(status);
         if (limit > total - offset) {
             return Result.error().code(300).message("Invalid limit and offset.");
         } else {

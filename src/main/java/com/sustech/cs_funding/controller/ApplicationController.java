@@ -29,8 +29,8 @@ public class ApplicationController {
     
     @GetMapping("/getTotalCount")
     @ApiOperation(value = "Get the number of all applications")
-    public Result getTotalCount() {
-        return applicationService.getTotalCount();
+    public Result getTotalCount(String status) {
+        return applicationService.getTotalCount(status);
     }
     
     @GetMapping("/getApplications")
