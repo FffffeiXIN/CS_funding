@@ -24,4 +24,7 @@ public interface FundingMapper {
 
     @Select("SELECT * FROM fund where name = #{name}")
     Fund getFundByName(String name);
+    
+    @Select("SELECT fund.code as code, fund.name as name, fund.due_date::date as due_date, SUM(group_fund.total) as total_sum, SUM(group_fund.used) as used_sum, (SUM(group_fund.total) - SUM(group_fund.used)) as left_sum, (100 * SUM(group_fund.used) / SUM(group_fund.total) || '%') as current_execution_rate, fund.execution_rate as qualified FROM group_fund JOIN fund ON fund.name = group_fund.fund_name group by fund.name")
+    List<_MultiUsedTable> calculateFundingSum();
 }
