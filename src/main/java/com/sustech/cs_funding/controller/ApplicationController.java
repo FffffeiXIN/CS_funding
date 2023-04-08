@@ -17,8 +17,8 @@ public class ApplicationController {
 
     @PostMapping("/applyFunding")
     @ApiOperation(value = "Apply Funding")
-    public Result applyFunding(String fundName, String applicant, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
-        return applicationService.applyFunding(fundName, applicant, group, money, first_category, second_category, abstracts, remarks);
+    public Result applyFunding(Integer id,String fundName, String applicant, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
+        return applicationService.applyFunding(id, fundName, applicant, group, money, first_category, second_category, abstracts, remarks);
     }
     
     @PostMapping("/approvalApplication")
