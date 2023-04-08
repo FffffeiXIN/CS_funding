@@ -2,6 +2,7 @@ package com.sustech.cs_funding.service.funding;
 
 import com.sustech.cs_funding.common.Result;
 import com.sustech.cs_funding.entity._ExpenditureSummary;
+import com.sustech.cs_funding.entity._ExpenditureSummaryUser;
 import com.sustech.cs_funding.entity._MultiUsedTable;
 import com.sustech.cs_funding.entity.GroupFund;
 import com.sustech.cs_funding.entity.ResearchGroup;
@@ -76,5 +77,10 @@ public class FundingService {
     public Result getExpenditureSummary(){
         List<_ExpenditureSummary> expenditureSumMap = fundingMapper.calculateExpenditureSummary();
         return  Result.ok().code(200).message("Success").addData("funding_info", expenditureSumMap);
+    }
+    
+    public Result getExpenditureSummaryUser(String group){
+        List<_ExpenditureSummaryUser> expenditureSumMapUser = fundingMapper.calculateExpenditureSummaryUser(group);
+        return Result.ok().code(200).message("Success").addData("funding_info", expenditureSumMapUser);
     }
 }
