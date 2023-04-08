@@ -4,15 +4,14 @@ import com.sustech.cs_funding.common.Result;
 import com.sustech.cs_funding.common.SendEmail;
 import com.sustech.cs_funding.entity.Application;
 import com.sustech.cs_funding.entity._ApplicationWithApplicant;
-import com.sustech.cs_funding.mapper.ApplicationMapper;
-import com.sustech.cs_funding.mapper.ExpenseCategoryMapper;
-import com.sustech.cs_funding.mapper.FundingMapper;
-import com.sustech.cs_funding.mapper.UserMapper;
+import com.sustech.cs_funding.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.time.LocalTime.now;
 
 @Service
 public class ApplicationService {
@@ -24,15 +23,24 @@ public class ApplicationService {
     UserMapper userMapper;
     @Autowired
     FundingMapper fundingMapper;
+    @Autowired
+    NotificationMapper notificationMapper;
 
-    public Result applyFunding(String fundName, String applicant_id, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
+    public Result applyFunding(Integer id, String fundName, String applicant_id, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
         Integer categoryID = expenseCategoryMapper.getCategoryID(first_category, second_category);
         applicationMapper.applyFunding(fundName, Integer.parseInt(applicant_id), group, money, categoryID, abstracts, remarks);
+        if (id != -1) {
+            applicationMapper.updateApp(id, fundName, money, categoryID, abstracts, remarks);
+        }
+        else {
+            applicationMapper.insertApp(fundName, Integer.parseInt(applicant_id), group, money, categoryID, abstracts, remarks);
+        }
         //Todo:后续要改
         String adminEmail = userMapper.getAdminEmail("CSE");
         String message = "From group " + group + ",\nthere are a new application for funding " + fundName;
         try {
             SendEmail.sendMail(adminEmail, "New Funding Application", message);
+            notificationMapper.insertNotification(Integer.parseInt(applicant_id), message, String.valueOf(now()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -56,6 +64,7 @@ public class ApplicationService {
         Integer user_id = application.getApplicant_id();
         try {
             SendEmail.sendMail(userMapper.getUserById(user_id).getEmail(), "Application Result", comment);
+            notificationMapper.insertNotification(user_id, comment, String.valueOf(now()));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
