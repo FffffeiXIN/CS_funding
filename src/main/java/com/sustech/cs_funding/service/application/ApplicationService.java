@@ -11,10 +11,9 @@ import com.sustech.cs_funding.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class ApplicationService {
@@ -71,12 +70,13 @@ public class ApplicationService {
         return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getTotalCount());
     }
 
-    public Result getApplications(int limit, int offset) {
+    public Result getApplications(int limit, int offset, String status) {
         int total = applicationMapper.getTotalCount();
         if (limit > total - offset) {
             return Result.error().code(300).message("Invalid limit and offset.");
         } else {
-            List<Application> applications = applicationMapper.getApplications(limit, offset);
+            List<Application> applications;
+            applications = applicationMapper.getApplications(limit, offset, Objects.requireNonNullElse(status, "%"));
             List<_ApplicationWithApplicant> _applicationWithApplicants = new ArrayList<>();
             for (Application a : applications) {
                 _ApplicationWithApplicant _app = new _ApplicationWithApplicant();

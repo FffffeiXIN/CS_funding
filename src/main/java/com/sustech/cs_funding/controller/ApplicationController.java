@@ -36,8 +36,8 @@ public class ApplicationController {
     @GetMapping("/getApplications")
     @ApiOperation(value = "Get all applications. " +
             "`limit` is the number of the results, ignoring the first `offset` records")
-    public Result getApplications(int limit, int offset) {
-        return applicationService.getApplications(limit, offset);
+    public Result getApplications(int limit, int offset, String status) {
+        return applicationService.getApplications(limit, offset, status);
     }
 
 }
