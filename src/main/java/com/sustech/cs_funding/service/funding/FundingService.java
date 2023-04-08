@@ -63,4 +63,9 @@ public class FundingService {
         }
         return Result.ok().code(200).message("Success").addData("funding_info", whole_res);
     }
+    
+    public Result getFundingBySum(){
+        List<_MultiUsedTable> multiusedtable = fundingMapper.calculateFundingSum();
+        return  Result.ok().code(200).message("Success").addData("funding_info", multiusedtable);
+    }
 }
