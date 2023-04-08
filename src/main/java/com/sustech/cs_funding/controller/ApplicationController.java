@@ -29,15 +29,21 @@ public class ApplicationController {
     
     @GetMapping("/getTotalCount")
     @ApiOperation(value = "Get the number of all applications")
-    public Result getTotalCount() {
-        return applicationService.getTotalCount();
+    public Result getTotalCount(String status) {
+        return applicationService.getTotalCount(status);
     }
     
     @GetMapping("/getApplications")
     @ApiOperation(value = "Get all applications. " +
             "`limit` is the number of the results, ignoring the first `offset` records")
-    public Result getApplications(int limit, int offset) {
-        return applicationService.getApplications(limit, offset);
+    public Result getApplications(int limit, int offset, String status) {
+        return applicationService.getApplications(limit, offset, status);
     }
 
+    @GetMapping("/getApplicationsByGroup")
+    @ApiOperation(value = "Get all applications submitted by a group. " +
+            "`limit` is the number of the results, ignoring the first `offset` records")
+    public Result getApplicationsByGroup(String group, int limit, int offset, String status) {
+        return applicationService.getApplicationsByGroup(group, limit, offset, status);
+    }
 }

@@ -8,8 +8,6 @@ import com.sustech.cs_funding.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,24 +72,42 @@ public class ApplicationService {
         return Result.ok().code(200).message("Success");
     }
 
-    public Result getTotalCount() {
-        return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getTotalCount());
+    public Result getTotalCount(String status) {
+        if (status.equals("total")) {
+            return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getTotalCount("%"));
+        } else {
+            return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getTotalCount(status));
+        }
     }
 
-    public Result getApplications(int limit, int offset) {
-        int total = applicationMapper.getTotalCount();
-        if (limit > total - offset) {
-            return Result.error().code(300).message("Invalid limit and offset.");
+    public Result getApplications(int limit, int offset, String status) {
+        List<Application> applications;
+        if (status.equals("total")) {
+            applications = applicationMapper.getApplications(limit, offset, "%");
         } else {
-            List<Application> applications = applicationMapper.getApplications(limit, offset);
-            List<_ApplicationWithApplicant> _applicationWithApplicants = new ArrayList<>();
-            for (Application a : applications) {
-                _ApplicationWithApplicant _app = new _ApplicationWithApplicant();
-                _app.setApplication(a);
-                _app.setApplicant(userMapper.getUserById(a.getApplicant_id()));
-                _applicationWithApplicants.add(_app);
-            }
-            return Result.ok().code(200).message("Success").addData("applications", _applicationWithApplicants);
+            applications = applicationMapper.getApplications(limit, offset, status);
         }
+        return joinApplicationWithApplicant(applications);
+    }
+
+    public Result getApplicationsByGroup(String group, int limit, int offset, String status) {
+        List<Application> applications;
+        if (status.equals("total")) {
+            applications = applicationMapper.getApplicationsByGroup(group , limit, offset, "%");
+        } else {
+            applications = applicationMapper.getApplicationsByGroup(group, limit, offset, status);
+        }
+        return joinApplicationWithApplicant(applications);
+    }
+
+    private Result joinApplicationWithApplicant(List<Application> applications) {
+        List<_ApplicationWithApplicant> _applicationWithApplicants = new ArrayList<>();
+        for (Application a : applications) {
+            _ApplicationWithApplicant _app = new _ApplicationWithApplicant();
+            _app.setApplication(a);
+            _app.setApplicant(userMapper.getUserById(a.getApplicant_id()));
+            _applicationWithApplicants.add(_app);
+        }
+        return Result.ok().code(200).message("Success").addData("applications", _applicationWithApplicants);
     }
 }
