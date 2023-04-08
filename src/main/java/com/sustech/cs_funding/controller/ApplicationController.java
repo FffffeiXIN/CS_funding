@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/apply")
 @CrossOrigin
-@Api(tags = "接口测试")
+@Api(tags = "ApplicationController")
 public class ApplicationController {
     @Autowired
     ApplicationService applicationService;
@@ -21,8 +21,8 @@ public class ApplicationController {
         return applicationService.applyFunding(fundName, applicant, group, money, first_category, second_category, abstracts, remarks);
     }
     
-    @PostMapping("/updateResult")
-    @ApiOperation(value = "Update the result")
+    @PostMapping("/approvalApplication")
+    @ApiOperation(value = "Approval Application")
     public Result updateResult(String id, String result, String comment) {
         return applicationService.updateResult(id, result,comment);
     }

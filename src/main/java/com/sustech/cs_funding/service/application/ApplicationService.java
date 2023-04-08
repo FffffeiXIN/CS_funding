@@ -1,6 +1,7 @@
 package com.sustech.cs_funding.service.application;
 
 import com.sustech.cs_funding.common.Result;
+import com.sustech.cs_funding.common.SendEmail;
 import com.sustech.cs_funding.entity.Application;
 import com.sustech.cs_funding.entity._ApplicationWithApplicant;
 import com.sustech.cs_funding.mapper.ApplicationMapper;
@@ -9,6 +10,8 @@ import com.sustech.cs_funding.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +25,18 @@ public class ApplicationService {
     UserMapper userMapper;
     public Result applyFunding(String fundName, String applicant_id, String group, Double money, String first_category, String second_category,String abstracts, String remarks){
         Integer categoryID = expenseCategoryMapper.getCategoryID(first_category, second_category);
-//        Integer applicant_id = userMapper.getUserByName(applicant).getSid();
+
         System.out.println(applicant_id);
         applicationMapper.applyFunding(fundName, Integer.parseInt(applicant_id), group, money, categoryID,abstracts, remarks);
+        //Todo:后续要改
+        String adminEmail = userMapper.getAdminEmail("CSE");
+        String message = "From group " + group + ",\nthere are a new application for funding " + fundName;
+        try {
+            System.out.println(adminEmail);
+            SendEmail.sendMail(adminEmail, "New Funding Application", message);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return Result.ok().code(200).message("Success");
     }
     

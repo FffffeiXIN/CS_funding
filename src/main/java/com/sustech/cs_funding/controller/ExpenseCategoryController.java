@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/categories")
 @CrossOrigin
-@Api(tags = "接口测试")
+@Api(tags = "ExpenseCategoryController")
 public class ExpenseCategoryController {
     @Autowired
     ExpenseCategoryService expenseCategoryService;

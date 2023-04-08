@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/groups")
 @CrossOrigin
-@Api(tags = "接口测试")
+@Api(tags = "ResearchGroupController")
 public class ResearchGroupController {
     @Autowired
     ResearchGroupService researchGroupService;

@@ -11,7 +11,7 @@ import java.net.UnknownHostException;
 import java.util.Properties;
 
 public class SendEmail {
-    public Result sendMailToStudents(String course_id, String title, String content) {
+//    public Result sendMailToStudents(String course_id, String title, String content) {
 //        List<User> students = courseMapper.getStudentsByCourse(course_id);
 //        try {
 //            for (Student s : students) {
@@ -22,10 +22,10 @@ public class SendEmail {
 //            throw new RuntimeException(e);
 //        }
 //
-        return Result.ok().message("邮件发送成功");
-    }
+//        return Result.ok().message("邮件发送成功");
+//    }
 
-    public void sendMail(String mail, String course_id, String title, String contents) throws MessagingException, UnknownHostException {
+    public static void sendMail(String mail, String subject, String send_message) throws MessagingException, UnknownHostException {
         Properties props = new Properties();
         props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtps.host", "smtp.sustech.edu.cn");
@@ -36,7 +36,7 @@ public class SendEmail {
 
         message.setFrom(new InternetAddress("12012939@mail.sustech.edu.cn"));
         message.setRecipients(MimeMessage.RecipientType.TO, mail);
-        message.setSubject("您的课程有新通知发布");
+        message.setSubject(subject);
 
         MimeMultipart msgMultipart = new MimeMultipart("mixed");
         message.setContent(msgMultipart);
@@ -49,13 +49,11 @@ public class SendEmail {
 
         MimeBodyPart htmlPart = new MimeBodyPart();
         bodyMultipart.addBodyPart(htmlPart);
-        String send_message = "课程" + course_id + "发布新通知：\n"
-                + "通知题目： " + title + "\n内容：" + contents;
         htmlPart.setContent(send_message, "text/plain;charset=UTF-8");
 
         Transport transport = mailSession.getTransport();
 
-        String password = "Lyx19970420!";
+        String password = "Lsm20020428";
         transport.connect("12012939@mail.sustech.edu.cn", password);
 
         transport.sendMessage(message, message.getAllRecipients());

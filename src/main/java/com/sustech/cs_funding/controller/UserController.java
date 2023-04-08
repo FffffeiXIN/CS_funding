@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin
-@Api(tags = "User Test")
+@Api(tags = "UserController")
 public class UserController {
     @Autowired
     UserService userService;
