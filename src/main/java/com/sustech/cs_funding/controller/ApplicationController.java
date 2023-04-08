@@ -40,4 +40,10 @@ public class ApplicationController {
         return applicationService.getApplications(limit, offset, status);
     }
 
+    @GetMapping("/getApplicationsByGroup")
+    @ApiOperation(value = "Get all applications submitted by a group. " +
+            "`limit` is the number of the results, ignoring the first `offset` records")
+    public Result getApplicationsByGroup(String group, int limit, int offset, String status) {
+        return applicationService.getApplicationsByGroup(group, limit, offset, status);
+    }
 }

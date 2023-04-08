@@ -74,24 +74,33 @@ public class ApplicationService {
     }
 
     public Result getApplications(int limit, int offset, String status) {
-        int total = applicationMapper.getTotalCount(status);
-        if (limit > total - offset) {
-            return Result.error().code(300).message("Invalid limit and offset.");
+        List<Application> applications;
+        if (status.equals("total")) {
+            applications = applicationMapper.getApplications(limit, offset, "%");
         } else {
-            List<Application> applications;
-            if (status.equals("total")) {
-                applications = applicationMapper.getApplications(limit, offset, "%");
-            } else {
-                applications = applicationMapper.getApplications(limit, offset, status);
-            }
-            List<_ApplicationWithApplicant> _applicationWithApplicants = new ArrayList<>();
-            for (Application a : applications) {
-                _ApplicationWithApplicant _app = new _ApplicationWithApplicant();
-                _app.setApplication(a);
-                _app.setApplicant(userMapper.getUserById(a.getApplicant_id()));
-                _applicationWithApplicants.add(_app);
-            }
-            return Result.ok().code(200).message("Success").addData("applications", _applicationWithApplicants);
+            applications = applicationMapper.getApplications(limit, offset, status);
         }
+        return joinApplicationWithApplicant(applications);
+    }
+
+    public Result getApplicationsByGroup(String group, int limit, int offset, String status) {
+        List<Application> applications;
+        if (status.equals("total")) {
+            applications = applicationMapper.getApplicationsByGroup(group , limit, offset, "%");
+        } else {
+            applications = applicationMapper.getApplicationsByGroup(group, limit, offset, status);
+        }
+        return joinApplicationWithApplicant(applications);
+    }
+
+    private Result joinApplicationWithApplicant(List<Application> applications) {
+        List<_ApplicationWithApplicant> _applicationWithApplicants = new ArrayList<>();
+        for (Application a : applications) {
+            _ApplicationWithApplicant _app = new _ApplicationWithApplicant();
+            _app.setApplication(a);
+            _app.setApplicant(userMapper.getUserById(a.getApplicant_id()));
+            _applicationWithApplicants.add(_app);
+        }
+        return Result.ok().code(200).message("Success").addData("applications", _applicationWithApplicants);
     }
 }
