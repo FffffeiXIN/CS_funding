@@ -49,7 +49,7 @@ public class ApplicationController {
     
     @GetMapping("/getApplicationCountByGroup")
     @ApiOperation(value = "Get the number of all applications that are submitted by a group")
-    public Result getApplicationCountByGroup(String group) {
-        return applicationService.getApplicationCountByGroup(group);
+    public Result getApplicationCountByGroup(String group, String status) {
+        return applicationService.getApplicationCountByGroup(group, status);
     }
 }

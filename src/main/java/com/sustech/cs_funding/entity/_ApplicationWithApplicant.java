@@ -5,4 +5,5 @@ import lombok.Data;
 public class _ApplicationWithApplicant {
     Application application;
     User applicant;
+    ExpenseCategory expenseCategory;
 }

@@ -13,4 +13,7 @@ public interface ExpenseCategoryMapper {
 
     @Select("SELECT id FROM expense_category WHERE first = #{first} and second = #{second}")
     Integer getCategoryID(String first, String second);
+    
+    @Select("SELECT first, second FROM expense_category WHERE id = #{id}")
+    ExpenseCategory getCategory(Integer id);
 }

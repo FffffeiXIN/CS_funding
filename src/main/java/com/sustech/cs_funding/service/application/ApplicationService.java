@@ -112,12 +112,17 @@ public class ApplicationService {
             _ApplicationWithApplicant _app = new _ApplicationWithApplicant();
             _app.setApplication(a);
             _app.setApplicant(userMapper.getUserById(a.getApplicant_id()));
+            _app.setExpenseCategory(expenseCategoryMapper.getCategory(a.getExpense_category()));
             _applicationWithApplicants.add(_app);
         }
         return Result.ok().code(200).message("Success").addData("applications", _applicationWithApplicants);
     }
     
-    public Result getApplicationCountByGroup(String group) {
-        return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getApplicationCountByGroup(group));
+    public Result getApplicationCountByGroup(String group, String status) {
+        if (status.equals("total")) {
+            return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getApplicationCountByGroup(group, "%"));
+        } else {
+            return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getApplicationCountByGroup(group, status));
+        }
     }
 }
