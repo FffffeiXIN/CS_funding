@@ -10,6 +10,5 @@ public class _ExpenditureSummary {
     Double total;
     Double usable_left;
     String current_execution_rate;
-    String qualified_rate;
     String qualified;
 }
