@@ -96,4 +96,9 @@ public class FundingService {
         List<_ExpenditureSummaryUser> expenditureSumMapUser = fundingMapper.calculateExpenditureSummaryUser(group);
         return Result.ok().code(200).message("Success").addData("funding_info", expenditureSumMapUser);
     }
+    
+    public Result allocateExerate(String code, String rate){
+        fundingMapper.allocateExecuterate(code, rate);
+        return Result.ok().code(200).message("Success");
+    }
 }
