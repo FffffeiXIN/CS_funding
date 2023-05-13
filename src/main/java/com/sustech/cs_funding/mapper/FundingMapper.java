@@ -60,4 +60,7 @@ public interface FundingMapper {
 
     @Update("UPDATE group_fund SET used = used + #{addUsed} WHERE group_name = #{group} and fund_name = #{funding}")
     void updateFunding(String group, String funding, Double addUsed);
+    
+    @Update("UPDATE fund SET execution_rate = #{rate} where code = #{code}")
+    void allocateExecuterate(String code, String rate);
 }
