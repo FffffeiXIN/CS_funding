@@ -50,4 +50,10 @@ public class UserController {
     public Result unBlockUser(String sid) {
         return userService.unBlockUser(sid);
     }
+
+    @PostMapping("/register")
+    @ApiOperation(value = "Register new user")
+    public Result register(String name, Integer sid, String password, String role, String email) {
+        return userService.register(name, sid, password, role, email);
+    }
 }

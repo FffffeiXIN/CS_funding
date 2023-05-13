@@ -52,4 +52,9 @@ public class UserService {
         int id = Integer.parseInt(sid);
         return Result.ok().addData("unBlockResult", userMapper.unBlockUser(id));
     }
+
+    public Result register(String name, Integer sid, String password, String role, String email) {
+        userMapper.register(name, sid, password, role, email);
+        return Result.ok().code(200).message("Success");
+    }
 }
