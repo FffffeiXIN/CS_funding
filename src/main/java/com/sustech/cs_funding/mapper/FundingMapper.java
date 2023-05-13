@@ -40,9 +40,10 @@ public interface FundingMapper {
             "       END as qualified\n" +
             "FROM group_fund JOIN fund ON fund.name = group_fund.fund_name group by fund.name")
     List<_MultiUsedTable> calculateFundingSum();
-
+    
     @Select("SELECT group_name, fund_name, code, total, used, (total - used) as usable_left,\n" +
             "       (100 * used / total || '%') as current_execution_rate,\n" +
+            "       fund.execution_rate as qualified_rate,\n" +
             "       CASE\n" +
             "           when (used / total) >= CAST(fund.execution_rate as double precision) then 'Yes'\n" +
             "           else 'No'\n" +
