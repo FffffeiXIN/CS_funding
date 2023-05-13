@@ -62,7 +62,7 @@ public class FundingService {
                 ress.put("execute_rate", groupFund.getUsed()/groupFund.getTotal());
                 //Todo:达标率未处理
                 ress.put("qualify", 1.0);
-                ress.put("name", fund_name);
+                ress.put("fund_name", fund_name);
                 arrayList.add(ress);
             }
 
