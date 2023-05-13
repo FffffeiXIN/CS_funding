@@ -30,7 +30,7 @@ public interface FundingMapper {
     @Select("SELECT name AS fund_name, code, due_date, execution_rate FROM fund where name = #{name}")
     Fund getFundByName(String name);
         
-    @Select("SELECT fund.code as code, fund.name as name, fund.due_date::date as due_date,\n" +
+        @Select("SELECT fund.code as code, fund.name as fund_name, fund.due_date::date as due_date,\n" +
             "       SUM(group_fund.total) as total_sum, SUM(group_fund.used) as used_sum,\n" +
             "       (SUM(group_fund.total) - SUM(group_fund.used)) as left_sum,\n" +
             "       (100 * SUM(group_fund.used) / SUM(group_fund.total) || '%') as current_execution_rate,\n" +
@@ -40,7 +40,7 @@ public interface FundingMapper {
             "       END as qualified\n" +
             "FROM group_fund JOIN fund ON fund.name = group_fund.fund_name group by fund.name")
     List<_MultiUsedTable> calculateFundingSum();
-    
+
     @Select("SELECT group_name, fund_name, code, total, used, (total - used) as usable_left,\n" +
             "       (100 * used / total || '%') as current_execution_rate,\n" +
             "       CASE\n" +
@@ -49,6 +49,17 @@ public interface FundingMapper {
             "       END as qualified\n" +
             "FROM group_fund JOIN fund ON  fund.name = group_fund.fund_name")
     List<_ExpenditureSummary> calculateExpenditureSummary();
+
+    @Select("SELECT fund.code as code, fund.name as fund_name, fund.due_date::date as due_date,\n" +
+            "       group_fund.total as total_sum, group_fund.used as used_sum,\n" +
+            "       (group_fund.total - group_fund.used) as left_sum,\n" +
+            "       (100 * group_fund.used / group_fund.total || '%') as current_execution_rate,\n" +
+            "       CASE\n" +
+            "           when (group_fund.used / group_fund.total) >= CAST(fund.execution_rate as double precision) then 'Yes'\n" +
+            "           else 'No'\n" +
+            "       END as qualified\n" +
+            "FROM group_fund JOIN fund ON fund.name = group_fund.fund_name where group_fund.group_name = #{group}")
+    List<_ExpenditureSummaryUser> calculateExpenditureSummaryUser(String group);
 
     @Select("SELECT subquery3.*, expense_category.first as first_category,expense_category.second as second_category from (\n" +
             "SELECT subquery2.*, group_fund.total as total_sum from (\n" +
@@ -67,18 +78,6 @@ public interface FundingMapper {
             "JOIN group_fund on group_fund.fund_name = subquery2.fund_name and group_fund.group_name = subquery2.group_name) as subquery3\n" +
             "JOIN expense_category on expense_category.id = subquery3.expense_category")
     List<_AuthorizedFundingDetail> calculateAuthorizedFundingDetailBtGroup(String group_name);
-
-
-    @Select("SELECT fund.code as code, fund.name as name, fund.due_date::date as due_date,\n" +
-            "       group_fund.total as total_sum, group_fund.used as used_sum,\n" +
-            "       (group_fund.total - group_fund.used) as left_sum,\n" +
-            "       (100 * group_fund.used / group_fund.total || '%') as current_execution_rate,\n" +
-            "       CASE\n" +
-            "           when (group_fund.used / group_fund.total) >= CAST(fund.execution_rate as double precision) then 'Yes'\n" +
-            "           else 'No'\n" +
-            "       END as qualified\n" +
-            "FROM group_fund JOIN fund ON fund.name = group_fund.fund_name where group_fund.group_name = #{group}")
-    List<_ExpenditureSummaryUser> calculateExpenditureSummaryUser(String group);
 
     @Update("UPDATE group_fund SET used = used + #{addUsed} WHERE group_name = #{group} and fund_name = #{funding}")
     void updateFunding(String group, String funding, Double addUsed);
