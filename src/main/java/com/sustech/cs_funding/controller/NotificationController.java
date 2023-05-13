@@ -23,4 +23,9 @@ public class NotificationController {
     public Result getUserNotification(Integer id) {
         return notificationService.getUserNotification(id);
     }
+
+    @GetMapping("/deleteAllNotificationOfUser")
+    public Result deleteAllNotificationOfUser(Integer id) {
+        return notificationService.deleteAllNotificationOfUser(id);
+    }
 }

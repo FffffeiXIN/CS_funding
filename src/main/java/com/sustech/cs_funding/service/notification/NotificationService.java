@@ -17,4 +17,9 @@ public class NotificationService {
         List<Notification> notification = notificationMapper.getNotificationByUser(id);
         return  Result.ok().code(200).message("Success").addData("notifications", notification);
     }
+
+    public Result deleteAllNotificationOfUser(Integer id) {
+        notificationMapper.deleteAllNotificationOfUser(id);
+        return Result.ok().code(200).message("Success");
+    }
 }
