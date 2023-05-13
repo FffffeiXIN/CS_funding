@@ -17,8 +17,14 @@ public class ApplicationController {
 
     @PostMapping("/applyFunding")
     @ApiOperation(value = "Apply Funding")
-    public Result applyFunding(Integer id,String fundName, String applicant, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
-        return applicationService.applyFunding(id, fundName, applicant, group, money, first_category, second_category, abstracts, remarks);
+    public Result applyFunding(Integer id,String fundName, String applicant, String group, Double money, String first_category, String second_category, String abstracts, String remarks, String status){
+        return applicationService.applyFunding(id, fundName, applicant, group, money, first_category, second_category, abstracts, remarks, status);
+    }
+
+    @PostMapping("/applyFundingDraft")
+    @ApiOperation(value = "A Draft of Apply Funding")
+    public Result applyFundingDraft(Integer id,String fundName, String applicant, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
+        return applicationService.applyFundingDraft(id, fundName, applicant, group, money, first_category, second_category, abstracts, remarks);
     }
     
     @PostMapping("/approvalApplication")
@@ -51,5 +57,11 @@ public class ApplicationController {
     @ApiOperation(value = "Get the number of all applications that are submitted by a group")
     public Result getApplicationCountByGroup(String group, String status) {
         return applicationService.getApplicationCountByGroup(group, status);
+    }
+
+    @GetMapping("/deleteApplicationByID")
+    @ApiOperation(value = "delete Application By ID")
+    public Result deleteApplicationByID(Integer id) {
+        return applicationService.deleteApplicationByID(id);
     }
 }

@@ -26,14 +26,19 @@ public class ApplicationService {
     @Autowired
     NotificationMapper notificationMapper;
 
-    public Result applyFunding(Integer id, String fundName, String applicant_id, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
+    public Result applyFunding(Integer id, String fundName, String applicant_id, String group, Double money, String first_category, String second_category, String abstracts, String remarks, String status) {
         Integer categoryID = expenseCategoryMapper.getCategoryID(first_category, second_category);
-        if (id != -1) {
-            applicationMapper.updateApp(id, fundName, money, categoryID, abstracts, remarks);
-        }
-        else {
+        // id == -1, insert new one without draft
+        //
+        if (id < 0) {
             applicationMapper.insertApp(fundName, Integer.parseInt(applicant_id), group, money, categoryID, abstracts, remarks);
         }
+        else if (status.equals("draft")) {
+            applicationMapper.deleteApplicationById(id);
+            applicationMapper.insertApp(fundName, Integer.parseInt(applicant_id), group, money, categoryID, abstracts, remarks);
+        }
+        else
+            applicationMapper.updateApp(id, fundName, money, categoryID, abstracts, remarks);
         //Todo:后续要改
         String adminEmail = userMapper.getAdminEmail("CSE");
         String message = "From group " + group + ",\nthere are a new application for funding " + fundName;
@@ -47,6 +52,12 @@ public class ApplicationService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return Result.ok().code(200).message("Success");
+    }
+
+    public Result applyFundingDraft(Integer id, String fundName, String applicant_id, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
+        Integer categoryID = expenseCategoryMapper.getCategoryID(first_category, second_category);
+        applicationMapper.insertAppDraft(fundName, Integer.parseInt(applicant_id), group, money, categoryID, abstracts, remarks);
         return Result.ok().code(200).message("Success");
     }
 
@@ -124,5 +135,10 @@ public class ApplicationService {
         } else {
             return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getApplicationCountByGroup(group, status));
         }
+    }
+
+    public Result deleteApplicationByID(Integer id) {
+        applicationMapper.deleteApplicationById(id);
+        return Result.ok().code(200).message("Success");
     }
 }
