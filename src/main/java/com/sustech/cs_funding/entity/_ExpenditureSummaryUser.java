@@ -4,7 +4,7 @@ import lombok.Data;
 @Data
 public class _ExpenditureSummaryUser {
     String code;
-    String name;
+    String fund_name;
     String due_date;
     Double total_sum;
     Double used_sum;
