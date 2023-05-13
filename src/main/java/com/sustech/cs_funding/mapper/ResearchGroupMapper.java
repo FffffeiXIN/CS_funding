@@ -10,4 +10,6 @@ import java.util.List;
 public interface ResearchGroupMapper {
     @Select("SELECT * FROM groups")
     List<ResearchGroup> selectAllResearchGroup();
+    @Select("SELECT * FROM groups WHERE name ILIKE '%'||#{name}||'%'")
+    List<ResearchGroup> selectResearchGroup(String name);
 }

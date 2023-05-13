@@ -2,7 +2,6 @@ package com.sustech.cs_funding.controller;
 
 import com.sustech.cs_funding.common.Result;
 import com.sustech.cs_funding.service.funding.FundingService;
-import com.sustech.cs_funding.service.research_group.ResearchGroupService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,12 @@ public class FundingController {
     @ApiOperation(value = "Get All Funding Info")
     public Result getAllFundingInfo() {
         return fundingService.getFunding();
+    }
+
+    @GetMapping("/queryFundingInfo")
+    @ApiOperation(value = "Query funding info by the name of the research group")
+    public Result queryFundingInfo(String group) {
+        return fundingService.queryFunding(group);
     }
     
     @GetMapping("/multiTotalTable")

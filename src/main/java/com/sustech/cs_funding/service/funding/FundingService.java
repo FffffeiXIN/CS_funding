@@ -34,7 +34,16 @@ public class FundingService {
     }
 
     public Result getFunding() {
-        List<ResearchGroup> groups = researchGroupMapper.selectAllResearchGroup();
+        return queryFunding(null);
+    }
+
+    public Result queryFunding(String groupName) {
+        List<ResearchGroup> groups;
+        if (groupName == null) {
+            groups = researchGroupMapper.selectAllResearchGroup();
+        } else {
+            groups = researchGroupMapper.selectResearchGroup(groupName);
+        }
         List<String> fundingNames = fundingMapper.getAllFundingName();
         ArrayList<HashMap<String, Object>> whole_res = new ArrayList<>();
 

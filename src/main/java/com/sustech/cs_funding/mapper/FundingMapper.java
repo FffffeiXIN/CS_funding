@@ -18,7 +18,7 @@ public interface FundingMapper {
     @Select("SELECT * FROM group_fund WHERE group_name = #{group} and fund_name = #{funding}")
     GroupFund selectFunding(String group, String funding);
     
-    @Select("SELECT * FROM group_fund WHERE group_name = #{group}")
+    @Select("SELECT * FROM group_fund WHERE group_name LIKE %#{group}%")
     List<GroupFund> selectFundingByGroup(String group);
     
     @Select("SELECT * FROM group_fund WHERE fund_name = #{fund}")
