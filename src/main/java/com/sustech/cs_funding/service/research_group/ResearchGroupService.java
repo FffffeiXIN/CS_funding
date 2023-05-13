@@ -17,4 +17,9 @@ public class ResearchGroupService {
         List<ResearchGroup> groups = researchGroupMapper.selectAllResearchGroup();
         return Result.ok().code(200).message("Success").addData("research_groups", groups);
     }
+
+    public Result getOneResearchGroups() {
+        List<ResearchGroup> groups = researchGroupMapper.selectAllResearchGroup();
+        return Result.ok().code(200).message("Success").addData("research_groups", groups);
+    }
 }

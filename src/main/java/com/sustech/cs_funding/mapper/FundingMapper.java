@@ -45,6 +45,16 @@ public interface FundingMapper {
             "JOIN expense_category on expense_category.id = subquery3.expense_category")
     List<_AuthorizedFundingDetail> calculateAuthorizedFundingDetail();
 
+    @Select("SELECT subquery3.*, expense_category.first as first_category,expense_category.second as second_category from (\n" +
+            "SELECT subquery2.*, group_fund.total as total_sum from (\n" +
+            "SELECT fund.code as code, subquery1.* from\n" +
+            "(SELECT fund_name as name, group_name as groups, expense_category, SUM(expense) as used_sum  from application where result = 'pass' and group_name = #{group_name} group by fund_name, group_name, expense_category) as subquery1\n" +
+            "JOIN fund on fund.name = subquery1.name) as subquery2\n" +
+            "JOIN group_fund on group_fund.fund_name = subquery2.name and group_fund.group_name = subquery2.groups) as subquery3\n" +
+            "JOIN expense_category on expense_category.id = subquery3.expense_category")
+    List<_AuthorizedFundingDetail> calculateAuthorizedFundingDetailBtGroup(String group_name);
+
+
     @Select("SELECT fund.code as code, fund.name as name, fund.due_date::date as due_date, group_fund.total as total_sum, group_fund.used as used_sum, (group_fund.total - group_fund.used) as left_sum, (100 * group_fund.used / group_fund.total || '%') as current_execution_rate, fund.execution_rate as qualified FROM group_fund JOIN fund ON fund.name = group_fund.fund_name where group_fund.group_name = #{group}")
     List<_ExpenditureSummaryUser> calculateExpenditureSummaryUser(String group);
 

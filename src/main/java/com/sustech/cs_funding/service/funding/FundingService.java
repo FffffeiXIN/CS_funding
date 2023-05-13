@@ -73,6 +73,11 @@ public class FundingService {
         return  Result.ok().code(200).message("Success").addData("funding_info", authorizedFundingDetails);
     }
 
+    public Result getAuthorizedFundingDetailByGroup(String group_name){
+        List<_AuthorizedFundingDetail> authorizedFundingDetails = fundingMapper.calculateAuthorizedFundingDetailBtGroup(group_name);
+        return  Result.ok().code(200).message("Success").addData("funding_info", authorizedFundingDetails);
+    }
+
     public Result getExpenditureSummary(){
         List<_ExpenditureSummary> expenditureSumMap = fundingMapper.calculateExpenditureSummary();
         return  Result.ok().code(200).message("Success").addData("funding_info", expenditureSumMap);
