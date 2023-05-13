@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class _AuthorizedFundingDetail {
     String code;
-    String name;
-    String groups;
+    String fund_name;
+    String group_name;
     Double total_sum;
     Double used_sum;
     String first_category;

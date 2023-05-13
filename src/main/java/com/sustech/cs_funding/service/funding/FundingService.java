@@ -62,7 +62,7 @@ public class FundingService {
                 ress.put("execute_rate", groupFund.getUsed()/groupFund.getTotal());
                 //Todo:达标率未处理
                 ress.put("qualify", 1.0);
-                ress.put("name", fund_name);
+                ress.put("fund_name", fund_name);
                 arrayList.add(ress);
             }
 
@@ -95,5 +95,10 @@ public class FundingService {
     public Result getExpenditureSummaryUser(String group){
         List<_ExpenditureSummaryUser> expenditureSumMapUser = fundingMapper.calculateExpenditureSummaryUser(group);
         return Result.ok().code(200).message("Success").addData("funding_info", expenditureSumMapUser);
+    }
+    
+    public Result allocateExerate(String code, String rate){
+        fundingMapper.allocateExecuterate(code, rate);
+        return Result.ok().code(200).message("Success");
     }
 }
