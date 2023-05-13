@@ -64,4 +64,10 @@ public class FundingController {
     public Result calculateExpenditureSummaryUser(String group) {
         return fundingService.getExpenditureSummaryUser(group);
     }
+    
+    @GetMapping("/updateExecutionRate")
+    @ApiOperation(value = "Update the Execution rate")
+    public Result updateExecutionRate(String code, String rate) {
+        return fundingService.allocateExerate(code, rate);
+    }
 }
