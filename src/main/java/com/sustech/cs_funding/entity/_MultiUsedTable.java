@@ -10,6 +10,7 @@ public class _MultiUsedTable {
     Double used_sum;
     Double left_sum;
     String current_execution_rate;
+    String qualified_rate;
     String qualified;
     String days_left;
 }
