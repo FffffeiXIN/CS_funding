@@ -75,7 +75,7 @@ public class UserService {
     }
 
     public Result getGroupInfo(int userid) {
-        List<ResearchGroup> groups_info = userMapper.getGroup(userid);
+        List<String> groups_info = userMapper.getGroup(userid);
         return Result.ok().code(200).message("Success").addData("groups_info", groups_info);
     }
 
