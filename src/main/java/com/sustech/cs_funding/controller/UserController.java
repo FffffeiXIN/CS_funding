@@ -62,4 +62,40 @@ public class UserController {
     public Result modifyPasswd(Integer sid, String password) {
         return userService.modifyPasswd(sid, password);
     }
+    
+    @GetMapping("insertGroup")
+    @ApiOperation(value = "insert research group relationship of specific user")
+    public Result insertGroup(int userid, String group) {
+        return userService.insertGroup(userid, group);
+    }
+
+    @GetMapping("deleteGroup")
+    @ApiOperation(value = "delete research group relationship of specific user")
+    public Result deleteGroup(int userid, String group) {
+        return userService.deleteGroup(userid, group);
+    }
+
+    @GetMapping("updateRole")
+    @ApiOperation(value = "update research group relationship of specific user")
+    public Result updateRole(int userid, String role) {
+        return userService.updateRole(userid, role);
+    }
+
+    @GetMapping("updateEmail")
+    @ApiOperation(value = "update email of specific user")
+    public Result updateEmail(int userid, String email) {
+        return userService.updateEmail(userid, email);
+    }
+    
+    @GetMapping("/getUserInfo")
+    @ApiOperation(value = "get the personal information of specific user")
+    public Result getUserInfo(String name) {
+        return userService.getUserInfo(name);
+    }
+
+    @GetMapping("getGroupInfo")
+    @ApiOperation(value = "get corresponding research groups of specific user")
+    public Result getGroupInfo(int userid) {
+        return userService.getGroupInfo(userid);
+    }
 }
