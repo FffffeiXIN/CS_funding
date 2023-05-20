@@ -76,4 +76,5 @@ public class FundingController {
     public Result updateTotalMoneyByExecutionRate() {
         return fundingService.updateTotalMoneyByExecutionRate();
     }
+
 }

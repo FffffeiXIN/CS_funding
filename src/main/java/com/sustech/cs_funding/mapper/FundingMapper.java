@@ -6,6 +6,7 @@ import com.sustech.cs_funding.entity.GroupFund;
 import com.sustech.cs_funding.entity._ExpenditureSummary;
 import com.sustech.cs_funding.entity._ExpenditureSummaryUser;
 import com.sustech.cs_funding.entity._MultiUsedTable;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -99,4 +100,7 @@ public interface FundingMapper {
             "     ) as condition\n" +
             "WHERE condition.qualified = 'No' and group_fund.fund_name = condition.fund_name and group_fund.group_name = condition.group_name")
     void updateTotalFunding();
+
+    @Delete("DELETE FROM group_fund WHERE total = 0")
+    void deleteZeroTotalFunding();
 }
