@@ -82,7 +82,7 @@ public class ApplicationService {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String time = formatter.format(date);
             System.out.println(formatter.format(date));
-            notificationMapper.insertNotification(user_id, comment, time);
+            notificationMapper.insertNotification(0, comment, time);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

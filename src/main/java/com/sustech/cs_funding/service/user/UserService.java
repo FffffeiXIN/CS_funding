@@ -4,6 +4,7 @@ import com.sustech.cs_funding.common.Result;
 import com.sustech.cs_funding.entity.User;
 import com.sustech.cs_funding.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -56,7 +57,15 @@ public class UserService {
     }
 
     public Result register(String name, Integer sid, String password, String role, String email) {
+    try {
         userMapper.register(name, sid, password, role, email);
-        return Result.ok().code(200).message("Success");
+        return Result.ok().code(200).addData("result", true);
+    } catch (DuplicateKeyException e) {
+        return Result.ok().code(200).addData("result", false);
+    }
+    }
+
+    public Result modifyPasswd(Integer sid, String password) {
+        return Result.ok().code(200).addData("result", userMapper.modifyPasswd(sid, password));
     }
 }

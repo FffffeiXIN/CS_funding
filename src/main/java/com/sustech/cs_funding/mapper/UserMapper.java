@@ -2,6 +2,7 @@ package com.sustech.cs_funding.mapper;
 
 import com.sustech.cs_funding.entity.User;
 import org.apache.ibatis.annotations.*;
+import org.springframework.dao.DuplicateKeyException;
 
 import java.util.List;
 
@@ -35,11 +36,11 @@ public interface UserMapper {
     void delete(Integer id);
 
     @Update("UPDATE users SET password = #{password} WHERE sid = #{id}")
-    Boolean modifyPasswd(String password);
+    Boolean modifyPasswd(Integer id, String password);
 
     @Select("SELECT email FROM users WHERE role = '管理员' and department = #{department}")
     String getAdminEmail(String department);
 
-    @Insert("INSERT INTO users (name, sid, password, role, status, department, email) VALUES #{name}, #{sid}, #{password}, #{role}, 'normal', 'CSE', #{email}")
-    void register(String name, Integer sid, String password, String role, String email);
+    @Insert("INSERT INTO users (name, sid, password, role, status, department, email) VALUES (#{name}, #{sid}, #{password}, #{role}, 'blocked', 'CSE', #{email})")
+    void register(String name, Integer sid, String password, String role, String email) throws DuplicateKeyException;
 }
