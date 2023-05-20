@@ -89,8 +89,8 @@ public class UserController {
     
     @GetMapping("/getUserInfo")
     @ApiOperation(value = "get the personal information of specific user")
-    public Result getUserInfo(String name) {
-        return userService.getUserInfo(name);
+    public Result getUserInfo(int userid) {
+        return userService.getUserInfo(userid);
     }
 
     @GetMapping("getGroupInfo")
