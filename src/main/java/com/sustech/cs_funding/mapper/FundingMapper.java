@@ -98,9 +98,9 @@ public interface FundingMapper {
             "        group_fund.group_name, group_fund.fund_name\n" +
             "    FROM group_fund JOIN fund ON fund.name = group_fund.fund_name\n" +
             "     ) as condition\n" +
-            "WHERE condition.qualified = 'No' and group_fund.fund_name = condition.fund_name and group_fund.group_name = condition.group_name")
+            "WHERE condition.qualified = 'No' and group_fund.fund_name = condition.fund_name and group_fund.group_name = condition.group_name and group_fund.total != 0")
     void updateTotalFunding();
 
-    @Delete("DELETE FROM group_fund WHERE total = 0")
-    void deleteZeroTotalFunding();
+//    @Delete("DELETE FROM group_fund WHERE total = 0")
+//    void deleteZeroTotalFunding();
 }

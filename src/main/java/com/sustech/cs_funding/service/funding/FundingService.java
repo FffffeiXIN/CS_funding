@@ -104,7 +104,7 @@ public class FundingService {
 
     public Result updateTotalMoneyByExecutionRate(){
         fundingMapper.updateTotalFunding();
-        fundingMapper.deleteZeroTotalFunding();
+//        fundingMapper.deleteZeroTotalFunding();
         return Result.ok().code(200).message("Success");
     }
 }
