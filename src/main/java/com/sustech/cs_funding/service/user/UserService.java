@@ -59,7 +59,6 @@ public class UserService {
     }
 
     public Result modifyPasswd(Integer sid, String password) {
-        userMapper.modifyPasswd(sid, password);
-        return Result.ok().code(200).message("Success");
+        return Result.ok().code(200).addData("result", userMapper.modifyPasswd(sid, password));
     }
 }

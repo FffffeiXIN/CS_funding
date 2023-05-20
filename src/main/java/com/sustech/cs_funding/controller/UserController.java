@@ -56,7 +56,7 @@ public class UserController {
     public Result register(String name, Integer sid, String password, String role, String email) {
         return userService.register(name, sid, password, role, email);
     }
-    
+
     @PostMapping("/modifyPasswd")
     @ApiOperation(value = "Modify user's password.")
     public Result modifyPasswd(Integer sid, String password) {
