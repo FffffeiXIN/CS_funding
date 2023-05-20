@@ -103,7 +103,7 @@ public class FundingService {
     }
 
     public Result updateTotalMoneyByExecutionRate(){
-//        fundingMapper.allocateExecuterate();
+        fundingMapper.updateTotalFunding();
         return Result.ok().code(200).message("Success");
     }
 }

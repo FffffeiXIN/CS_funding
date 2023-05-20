@@ -85,5 +85,18 @@ public interface FundingMapper {
     @Update("UPDATE fund SET execution_rate = #{rate} where code = #{code}")
     void allocateExecuterate(String code, String rate);
 
-
+    @Update("UPDATE group_fund\n" +
+            "SET total = condition.value\n" +
+            "FROM (\n" +
+            "    SELECT\n" +
+            "        CASE\n" +
+            "            when group_fund.used / group_fund.total >= CAST(fund.execution_rate as double precision) then 'Yes'\n" +
+            "            else 'No'\n" +
+            "        END as qualified,\n" +
+            "        CAST((group_fund.used / CAST(fund.execution_rate as double precision)) as integer) as value,\n" +
+            "        group_fund.group_name, group_fund.fund_name\n" +
+            "    FROM group_fund JOIN fund ON fund.name = group_fund.fund_name\n" +
+            "     ) as condition\n" +
+            "WHERE condition.qualified = 'No' and group_fund.fund_name = condition.fund_name and group_fund.group_name = condition.group_name")
+    void updateTotalFunding();
 }
