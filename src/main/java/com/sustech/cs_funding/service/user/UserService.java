@@ -68,4 +68,34 @@ public class UserService {
     public Result modifyPasswd(Integer sid, String password) {
         return Result.ok().code(200).addData("result", userMapper.modifyPasswd(sid, password));
     }
+    
+    public Result getUserInfo(int userid) {
+        User user_info = userMapper.getUserById(userid);
+        return Result.ok().code(200).message("Success").addData("user_info", user_info);
+    }
+
+    public Result getGroupInfo(int userid) {
+        List<ResearchGroup> groups_info = userMapper.getGroup(userid);
+        return Result.ok().code(200).message("Success").addData("groups_info", groups_info);
+    }
+
+    public Result insertGroup(int userid, String group) {
+        userMapper.insertGroup(userid, group);
+        return Result.ok().code(200).message("Success");
+    }
+
+    public Result deleteGroup(int userid, String group) {
+        userMapper.deleteGroup(userid, group);
+        return Result.ok().code(200).message("Success");
+    }
+
+    public Result updateRole(int userid, String role) {
+        userMapper.updateRole(userid, role);
+        return Result.ok().code(200).message("Success");
+    }
+
+    public Result updateEmail(int userid, String email) {
+        userMapper.updateEmail(userid, email);
+        return Result.ok().code(200).message("Success");
+    }
 }
