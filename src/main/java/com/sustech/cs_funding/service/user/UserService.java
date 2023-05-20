@@ -19,6 +19,8 @@ public class UserService {
         if (res.isEmpty()) {
             return Result.error().code(400).message("Wrong password");
         }
+        else if (res.get(0).getStatus().equals("blocked"))
+            return Result.error().code(300).message("User blocked");
         return Result.ok().code(200).message("Refer to loginResult")
                 .addData("user", userMapper.login(id, password))
                 .addData("group", userMapper.getGroup(id));
