@@ -48,7 +48,7 @@ public class ApplicationService {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String time = formatter.format(date);
             System.out.println(formatter.format(date));
-            notificationMapper.insertNotification(Integer.parseInt(applicant_id), message, time);
+            notificationMapper.insertNotification(0, message, time);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -82,7 +82,7 @@ public class ApplicationService {
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String time = formatter.format(date);
             System.out.println(formatter.format(date));
-            notificationMapper.insertNotification(0, comment, time);
+            notificationMapper.insertNotification(user_id, comment, time);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
