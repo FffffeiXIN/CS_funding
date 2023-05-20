@@ -84,4 +84,6 @@ public interface FundingMapper {
     
     @Update("UPDATE fund SET execution_rate = #{rate} where code = #{code}")
     void allocateExecuterate(String code, String rate);
+
+
 }

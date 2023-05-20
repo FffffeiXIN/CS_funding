@@ -70,4 +70,10 @@ public class FundingController {
     public Result updateExecutionRate(String code, String rate) {
         return fundingService.allocateExerate(code, rate);
     }
+
+    @GetMapping("/updateTotalMoneyByExecutionRate")
+    @ApiOperation(value = "update Total Money By Execution rate")
+    public Result updateTotalMoneyByExecutionRate() {
+        return fundingService.updateTotalMoneyByExecutionRate();
+    }
 }

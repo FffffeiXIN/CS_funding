@@ -101,4 +101,9 @@ public class FundingService {
         fundingMapper.allocateExecuterate(code, rate);
         return Result.ok().code(200).message("Success");
     }
+
+    public Result updateTotalMoneyByExecutionRate(){
+//        fundingMapper.allocateExecuterate();
+        return Result.ok().code(200).message("Success");
+    }
 }
