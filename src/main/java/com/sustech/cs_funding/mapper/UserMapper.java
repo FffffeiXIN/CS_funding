@@ -43,4 +43,16 @@ public interface UserMapper {
 
     @Insert("INSERT INTO users (name, sid, password, role, status, department, email) VALUES (#{name}, #{sid}, #{password}, #{role}, 'blocked', 'CSE', #{email})")
     void register(String name, Integer sid, String password, String role, String email) throws DuplicateKeyException;
+    
+    @Insert("INSERT INTO user_group (sid, group_name) VALUES (#{userid}, #{group})")
+    void insertGroup(int userid, String group);
+
+    @Delete("DELETE FROM user_group WHERE sid = #{userid} and group_name = #{group}")
+    void deleteGroup(int userid, String group);
+
+    @Update("UPDATE users SET role = #{role} where sid = #{userid}")
+    void updateRole(int userid, String role);
+
+    @Update("UPDATE users SET email = #{email} where sid = #{userid}")
+    void updateEmail(int userid, String email);
 }
