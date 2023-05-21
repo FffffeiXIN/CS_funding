@@ -10,4 +10,5 @@ public class Fund {
     String code;
     Date due_date;
     String execution_rate;
+    Double total_available;
 }
