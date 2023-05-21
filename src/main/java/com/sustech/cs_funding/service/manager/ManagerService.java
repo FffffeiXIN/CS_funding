@@ -14,4 +14,14 @@ public class ManagerService {
         managerMapper.allocateFundInfo(group_name, fund_name, total);
         return Result.ok().code(200).message("Success");
     }
+    
+    public Result totalmoneyAllocation(String code, Double total){
+        managerMapper.allocateTotalFundInfo(code, total);
+        return Result.ok().code(200).message("Success");
+    }
+
+    public Result totalmoneyCheck(String code){
+        Double totalmoney = managerMapper.checkTotalFund(code);
+        return  Result.ok().code(200).message("Success").addData("total_money", totalmoney);
+    }
 }
