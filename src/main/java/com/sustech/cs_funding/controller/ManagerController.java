@@ -21,6 +21,18 @@ public class ManagerController {
     public Result moneyAllocation(String group_name, String fund_name, Double total) {
         return managerService.moneyAllocation(group_name, fund_name, total);
     }
+    
+    @GetMapping("/totalmoneyAllocation")
+    @ApiOperation(value = "Manager to allocate the total money")
+    public Result totalMoneyAllocation(String code, Double total) {
+        return managerService.totalmoneyAllocation(code, total);
+    }
+
+    @GetMapping("/totammoneyCheck")
+    @ApiOperation(value = "check the value of total_available")
+    public Result totalMoneyCheck(String code) {
+        return managerService.totalmoneyCheck(code);
+    }
 
 
 }
