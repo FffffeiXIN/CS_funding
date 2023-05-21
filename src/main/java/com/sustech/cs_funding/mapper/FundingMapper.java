@@ -32,14 +32,14 @@ public interface FundingMapper {
     Fund getFundByName(String name);
         
     @Select("SELECT fund.code as code, fund.name as fund_name, fund.due_date::date as due_date,\n" +
-            "       SUM(group_fund.total) as total_sum, SUM(group_fund.used) as used_sum,\n" +
-            "       (SUM(group_fund.total) - SUM(group_fund.used)) as left_sum,\n" +
-            "       (100 * SUM(group_fund.used) / SUM(group_fund.total) || '%') as current_execution_rate,\n" +
-            "       fund.execution_rate as qualified_rate,\n" +
-            "       CASE\n" +
-            "           when (SUM(group_fund.used) / SUM(group_fund.total)) >= CAST(fund.execution_rate as double precision) then 'Yes'\n" +
-            "           else 'No'\n" +
-            "       END as qualified\n" +
+            "        fund.total_available as total_sum, SUM(group_fund.used) as used_sum,\n" +
+            "        (fund.total_available - SUM(group_fund.used)) as left_sum,\n" +
+            "        (100 * SUM(group_fund.used) / fund.total_available || '%') as current_execution_rate,\n" +
+            "        fund.execution_rate as qualified_rate,\n" +
+            "        CASE\n" +
+            "            when (SUM(group_fund.used) / fund.total_available) >= CAST(fund.execution_rate as double precision) then 'Yes'\n" +
+            "            else 'No'\n" +
+            "        END as qualified\n" +
             "FROM group_fund JOIN fund ON fund.name = group_fund.fund_name group by fund.name")
     List<_MultiUsedTable> calculateFundingSum();
 
