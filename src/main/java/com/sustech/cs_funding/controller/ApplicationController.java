@@ -17,28 +17,28 @@ public class ApplicationController {
 
     @PostMapping("/applyFunding")
     @ApiOperation(value = "Apply Funding")
-    public Result applyFunding(Integer id,String fundName, String applicant, String group, Double money, String first_category, String second_category, String abstracts, String remarks, String status){
+    public Result applyFunding(Integer id, String fundName, String applicant, String group, Double money, String first_category, String second_category, String abstracts, String remarks, String status) {
         return applicationService.applyFunding(id, fundName, applicant, group, money, first_category, second_category, abstracts, remarks, status);
     }
 
     @PostMapping("/applyFundingDraft")
     @ApiOperation(value = "A Draft of Apply Funding")
-    public Result applyFundingDraft(Integer id,String fundName, String applicant, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
+    public Result applyFundingDraft(Integer id, String fundName, String applicant, String group, Double money, String first_category, String second_category, String abstracts, String remarks) {
         return applicationService.applyFundingDraft(id, fundName, applicant, group, money, first_category, second_category, abstracts, remarks);
     }
-    
+
     @PostMapping("/approvalApplication")
     @ApiOperation(value = "Approval Application")
     public Result updateResult(Integer id, String result, String comment) {
-        return applicationService.updateResult(id, result,comment);
+        return applicationService.updateResult(id, result, comment);
     }
-    
+
     @GetMapping("/getTotalCount")
     @ApiOperation(value = "Get the number of all applications")
     public Result getTotalCount(String status) {
         return applicationService.getTotalCount(status);
     }
-    
+
     @GetMapping("/getApplications")
     @ApiOperation(value = "Get all applications. " +
             "`limit` is the number of the results, ignoring the first `offset` records")
@@ -52,7 +52,7 @@ public class ApplicationController {
     public Result getApplicationsByGroup(String group, int limit, int offset, String status) {
         return applicationService.getApplicationsByGroup(group, limit, offset, status);
     }
-    
+
     @GetMapping("/getApplicationCountByGroup")
     @ApiOperation(value = "Get the number of all applications that are submitted by a group")
     public Result getApplicationCountByGroup(String group, String status) {

@@ -98,4 +98,19 @@ public class UserService {
         userMapper.updateEmail(userid, email);
         return Result.ok().code(200).message("Success");
     }
+
+    public Result updateAvatar(int userid, String avatar) {
+        userMapper.updateAvatar(userid, avatar);
+        return Result.ok().code(200).message("Success");
+    }
+
+    public Result updateOnline(int userid, boolean online) {
+        userMapper.updateOnline(userid, online);
+        return Result.ok().code(200).message("Success");
+    }
+
+    public Result getOnlineUsers() {
+        List<User> onlineUsers = userMapper.getOnlineUsers();
+        return Result.ok().code(200).message("Success").addData("online_users", onlineUsers);
+    }
 }

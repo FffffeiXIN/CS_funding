@@ -98,4 +98,22 @@ public class UserController {
     public Result getGroupInfo(int userid) {
         return userService.getGroupInfo(userid);
     }
+
+    @PostMapping("updateAvatar")
+    @ApiOperation(value = "upload new avatar")
+    public Result updateAvatar(int userid, String avatar) {
+        return userService.updateAvatar(userid, avatar);
+    }
+
+    @GetMapping("updateOnline")
+    @ApiOperation(value = "update online state of user")
+    public Result updateOnline(int userid, boolean online) {
+        return userService.updateOnline(userid, online);
+    }
+
+    @GetMapping("getOnlineUsers")
+    @ApiOperation(value = "get online users")
+    public Result getOnlineUsers() {
+        return userService.getOnlineUsers();
+    }
 }

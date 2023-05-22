@@ -11,10 +11,10 @@ public interface UserMapper {
     @Select("SELECT name, sid, role, status, email FROM users WHERE name = #{username}")
     User getUserByName(String username);
     
-    @Select("SELECT name, sid, role, status, email FROM users WHERE sid = #{id}")
+    @Select("SELECT name, sid, role, status, email, department, avatar FROM users WHERE sid = #{id}")
     User getUserById(Integer id);
 
-    @Select("SELECT name, sid, role, status, email FROM users")
+    @Select("SELECT name, sid, role, status, email, department, avatar FROM users u")
     List<User> getAllUsers();
 
     @Select("SELECT sid FROM user_group WHERE group_name = #{group}")
@@ -28,6 +28,9 @@ public interface UserMapper {
     
     @Select("SELECT name, sid, role, status, email FROM users WHERE password = #{password} AND sid = #{id}")
     List<User> login(Integer id, String password);
+
+    @Update("UPDATE users SET online = #{online} WHERE sid = #{id}")
+    void updateOnline(Integer id, boolean online);
 
     @Select("SELECT group_name FROM user_group WHERE sid = #{id}")
     List<String> getGroup(Integer id);
@@ -55,4 +58,10 @@ public interface UserMapper {
 
     @Update("UPDATE users SET email = #{email} where sid = #{userid}")
     void updateEmail(int userid, String email);
+
+    @Update("UPDATE users SET avatar = #{avatar} where sid = #{userid}")
+    void updateAvatar(int userid, String avatar);
+
+    @Select("SELECT sid, name, role, online FROM users WHERE online = true")
+    List<User> getOnlineUsers();
 }

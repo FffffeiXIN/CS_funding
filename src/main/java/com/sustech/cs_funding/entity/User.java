@@ -8,7 +8,8 @@ public class User {
     String role;
     String password;
     String status;
-    String online;
+    Boolean online;
     String email;
     String department;
+    String avatar;
 }
