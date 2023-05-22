@@ -11,4 +11,5 @@ public class Fund {
     Date due_date;
     String execution_rate;
     Double total_available;
+    Double total_used;
 }

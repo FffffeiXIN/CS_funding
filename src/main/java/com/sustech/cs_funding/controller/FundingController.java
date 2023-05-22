@@ -47,6 +47,7 @@ public class FundingController {
     public Result multiDetailTable() {
         return fundingService.getAuthorizedFundingDetail();
     }
+
     @GetMapping("/oneGroupMultiDetailTable")
     @ApiOperation(value = "Funding authorization details")
     public Result oneGroupMultiDetailTable(String group_name) {

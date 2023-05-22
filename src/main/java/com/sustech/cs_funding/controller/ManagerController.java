@@ -22,17 +22,21 @@ public class ManagerController {
         return managerService.moneyAllocation(group_name, fund_name, total);
     }
     
-    @GetMapping("/totalmoneyAllocation")
+    @GetMapping("/totalMoneyAllocation")
     @ApiOperation(value = "Manager to allocate the total money")
     public Result totalMoneyAllocation(String code, Double total) {
         return managerService.totalmoneyAllocation(code, total);
     }
 
-    @GetMapping("/totammoneyCheck")
+    @GetMapping("/totalMoneyCheck")
     @ApiOperation(value = "check the value of total_available")
     public Result totalMoneyCheck(String code) {
         return managerService.totalmoneyCheck(code);
     }
 
-
+    @GetMapping("/getFundsInfo")
+    @ApiOperation(value = "get funds name, code, total money, ...")
+    public Result getFundsInfo() {
+        return managerService.getFundsInfo();
+    }
 }
