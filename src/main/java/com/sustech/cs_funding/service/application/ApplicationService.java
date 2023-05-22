@@ -62,14 +62,22 @@ public class ApplicationService {
     }
 
     public Result updateResult(Integer id, String result, String comment) {
-        applicationMapper.updateResult(id, result, comment);
         Application application = applicationMapper.getApplicationById(id);
         if (result.equals("pass")) {
-            comment = "Your application for funding has been approved.\n"+"Comment: "+ comment;
             String group = application.getGroup_name();
             String fundName = application.getFund_name();
             Double money = application.getExpense();
-            fundingMapper.updateFunding(group, fundName, money);
+            Double total = fundingMapper.selectOneTotalFunding(group, fundName);
+            Double used = fundingMapper.selectOneUsedFunding(group, fundName);
+            if (used + money > total) {
+                applicationMapper.updateResult(id, "refuse", comment);
+                comment = "Sorry, your application for funding has been refused.\n"+"Comment: "+ comment;
+            }
+            else {
+                applicationMapper.updateResult(id, result, comment);
+                comment = "Your application for funding has been approved.\n"+"Comment: "+ comment;
+                fundingMapper.updateFunding(group, fundName, money);
+            }
 //            return Result.ok().code(200).message("Success").addData("apply",application);
         }
         else{
@@ -88,7 +96,7 @@ public class ApplicationService {
         }
         return Result.ok().code(200).message("Success");
     }
-
+    
     public Result getTotalCount(String status) {
         if (status.equals("total")) {
             return Result.ok().code(200).message("Success").addData("totalCount", applicationMapper.getTotalCount("%"));
