@@ -15,7 +15,7 @@ on:
     branches: [ "master" ]
 
 env:
-  IMAGE_NAME: cs_funding:$(date +%s)
+  IMAGE_NAME: cs_funding
 
 jobs:
   build:
