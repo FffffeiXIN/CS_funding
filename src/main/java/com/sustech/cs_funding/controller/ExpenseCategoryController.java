@@ -20,7 +20,7 @@ public class ExpenseCategoryController {
 
     @GetMapping("/getAllExpenseCategories")
     @ApiOperation(value = "Get All Expense Categories")
-    public Result getAllResearchGroups() {
+    public Result getAllExpenseCategories() {
         return expenseCategoryService.getAllExpenseCategories();
     }
 }
