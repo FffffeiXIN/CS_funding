@@ -6,7 +6,7 @@
 
 Developers of CS Funding System: 
 
-:man:[Yuwei Xiao](https://github.com/Xavier-Shaw), :woman:[Zhe Ding](https://github.com/DingZ0115), :woman:[Shimin Luo](https://github.com/FffffeiXIN), :man:[Sirui Lee](https://github.com/Siri-Lee), :man:[Dazhi FENG](https://github.com/dazhi0619)
+:woman:[Shimin Luo](https://github.com/FffffeiXIN), :man:[Yuwei Xiao](https://github.com/Xavier-Shaw), :woman:[Zhe Ding](https://github.com/DingZ0115), :man:[Sirui Lee](https://github.com/Siri-Lee), :man:[Dazhi FENG](https://github.com/dazhi0619)
 
 ---
 
@@ -247,7 +247,7 @@ Moreover, you are able to:
 
 Developers of CS Funding System: 
 
-:man:[Yuwei Xiao](https://github.com/Xavier-Shaw), :woman:[Zhe Ding](https://github.com/DingZ0115), :woman:[Shimin Luo](https://github.com/FffffeiXIN), :man:[Sirui Lee](https://github.com/Siri-Lee), :man:[Dazhi FENG](https://github.com/dazhi0619)
+:woman:[Shimin Luo](https://github.com/FffffeiXIN), :man:[Yuwei Xiao](https://github.com/Xavier-Shaw), :woman:[Zhe Ding](https://github.com/DingZ0115), :man:[Sirui Lee](https://github.com/Siri-Lee), :man:[Dazhi FENG](https://github.com/dazhi0619)
 
 ---
 
